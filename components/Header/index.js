@@ -5,43 +5,39 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
+  Image,
+  StyleSheet,
 } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import Entypo from "@expo/vector-icons/Entypo";
-import Ionicons from "@expo/vector-icons/Ionicons";
+
 import Search from "../Search";
+import colors from "../../constant/colors";
 
 const Header = () => (
   <SafeAreaView>
-    <StatusBar backgroundColor="#19b55c" />
+    <StatusBar backgroundColor={colors.white} />
     <View style={styles.headerContainer}>
       <View style={styles.locationContainer}>
         <View style={styles.locationTextContainer}>
-          <Text style={styles.locationLabel}>Location</Text>
-          <View style={styles.locationView}>
-            <Ionicons name="location-sharp" size={22} color="white" />
-            <TouchableOpacity style={styles.locationButton}>
-              <Text style={styles.locationText}>Shaheen Bagh</Text>
-              <Entypo name="chevron-small-down" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.locationLabel}>Let's Find Your</Text>
+          <TouchableOpacity style={styles.locationButton}>
+            <Text style={styles.locationText}>Favorite Home</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.bellButton}>
-          <FontAwesome name="bell" size={18} color="white" />
-        </TouchableOpacity>
+        <Image
+          source={{
+            uri: "https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724457600&semt=ais_hybrid",
+          }}
+          style={styles.profileImage}
+        />
       </View>
       <Search />
     </View>
   </SafeAreaView>
 );
 
-const styles = {
+const styles = StyleSheet.create({
   headerContainer: {
-    backgroundColor: "#19b55c",
-    height: 160,
-    width: "100%",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    backgroundColor: colors.white,
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
@@ -51,31 +47,26 @@ const styles = {
     justifyContent: "space-between",
   },
   locationTextContainer: {
-    paddingHorizontal: 10,
+    marginLeft: 5,
   },
   locationLabel: {
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: "200",
-    color: "white",
-    paddingLeft: 5,
-  },
-  locationView: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 5,
+    color: "gray",
   },
   locationButton: {
-    flexDirection: "row",
-    alignItems: "center",
+    marginTop: 5,
   },
   locationText: {
-    color: "white",
+    color: colors.baseColor,
+    fontSize: 20,
+    fontWeight: "600",
   },
-  bellButton: {
-    backgroundColor: "rgb(64,193,120)",
-    padding: 10,
-    borderRadius: 7,
+  profileImage: {
+    height: 45,
+    width: 45,
+    borderRadius: 50,
   },
-};
+});
 
 export default Header;
