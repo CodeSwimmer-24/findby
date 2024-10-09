@@ -12,28 +12,30 @@ import {
 import Search from "../Search";
 import colors from "../../constant/colors";
 
-const Header = () => (
-  <SafeAreaView>
-    <StatusBar backgroundColor={colors.white} />
-    <View style={styles.headerContainer}>
-      <View style={styles.locationContainer}>
-        <View style={styles.locationTextContainer}>
-          <Text style={styles.locationLabel}>Let's Find Your</Text>
-          <TouchableOpacity style={styles.locationButton}>
-            <Text style={styles.locationText}>Favorite Home</Text>
-          </TouchableOpacity>
+const Header = () => {
+  return (
+    <SafeAreaView>
+      <StatusBar backgroundColor={colors.white} />
+      <View style={styles.headerContainer}>
+        <View style={styles.locationContainer}>
+          <View style={styles.locationTextContainer}>
+            <Text style={styles.locationLabel}>Let's Find Your</Text>
+            <TouchableOpacity style={styles.locationButton}>
+              <Text style={styles.locationText}>Favorite Home</Text>
+            </TouchableOpacity>
+          </View>
+          <Image
+            source={{
+              uri: "https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724457600&semt=ais_hybrid",
+            }}
+            style={styles.profileImage}
+          />
         </View>
-        <Image
-          source={{
-            uri: "https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1724457600&semt=ais_hybrid",
-          }}
-          style={styles.profileImage}
-        />
+        <Search />
       </View>
-      <Search />
-    </View>
-  </SafeAreaView>
-);
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   locationLabel: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "200",
     color: "gray",
   },

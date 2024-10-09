@@ -9,7 +9,7 @@ const cards = [
   {
     id: 1,
     name: "House Name",
-    price: "3000/month",
+    price: "22000 /month",
     location: "Thoker No 6, Shaheen Bagh",
     image:
       "https://media.istockphoto.com/id/1026205392/photo/beautiful-luxury-home-exterior-at-twilight.jpg?s=612x612&w=0&k=20&c=HOCqYY0noIVxnp5uQf1MJJEVpsH_d4WtVQ6-OwVoeDo=",
@@ -75,7 +75,7 @@ const NearYou = ({ navigation }) => {
                   color={colors.gray}
                   style={styles.sofaIcon}
                 />
-                <Text style={styles.detailsText}>3.0</Text>
+                <Text style={styles.detailsText}>3.0 BHK</Text>
               </View>
               <View style={styles.footer}>
                 <View style={styles.tag}>

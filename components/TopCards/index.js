@@ -15,7 +15,7 @@ const cards = [
     id: 1,
     name: "House Name",
     price: "3000/month",
-    location: " Thoker No 6, Shaheen Bagh",
+    location: " Thoker No 2, Shaheen Bagh",
     image:
       "https://media.istockphoto.com/id/1026205392/photo/beautiful-luxury-home-exterior-at-twilight.jpg?s=612x612&w=0&k=20&c=HOCqYY0noIVxnp5uQf1MJJEVpsH_d4WtVQ6-OwVoeDo=",
   },

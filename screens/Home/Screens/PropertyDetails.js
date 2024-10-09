@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StatusBar,
   ScrollView,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
@@ -40,10 +41,18 @@ const extraDetails = [
   },
   {
     id: 5,
-    title: "Aggirement Duration",
-    description: "11 months aggriment duration.",
+    title: "Agreement Duration",
+    description: "11 months agreement duration.",
     icon: "document-outline",
   },
+];
+
+// Dummy photos for the Photos Tab
+const propertyPhotos = [
+  { id: 1, uri: "https://via.placeholder.com/300" },
+  { id: 2, uri: "https://via.placeholder.com/300" },
+  { id: 3, uri: "https://via.placeholder.com/300" },
+  { id: 4, uri: "https://via.placeholder.com/300" },
 ];
 
 const PropertyDetails = ({ route }) => {
@@ -94,6 +103,7 @@ const PropertyDetails = ({ route }) => {
         </View>
 
         <View style={styles.tabContainer}>
+          {/* Tab for About Flat */}
           <TouchableOpacity
             style={[
               styles.tabButton,
@@ -115,6 +125,8 @@ const PropertyDetails = ({ route }) => {
               About Flat
             </Text>
           </TouchableOpacity>
+
+          {/* Tab for More Info */}
           <TouchableOpacity
             style={[
               styles.tabButton,
@@ -133,7 +145,30 @@ const PropertyDetails = ({ route }) => {
                 },
               ]}
             >
-              More Info
+              More Info.
+            </Text>
+          </TouchableOpacity>
+
+          {/* Tab for Photos */}
+          <TouchableOpacity
+            style={[
+              styles.tabButton,
+              {
+                borderBottomColor:
+                  activeTab === "Photos" ? colors.baseColor : "lightgray",
+              },
+            ]}
+            onPress={() => setActiveTab("Photos")}
+          >
+            <Text
+              style={[
+                styles.tabText,
+                {
+                  color: activeTab === "Photos" ? colors.baseColor : "gray",
+                },
+              ]}
+            >
+              Photos
             </Text>
           </TouchableOpacity>
         </View>
@@ -142,7 +177,7 @@ const PropertyDetails = ({ route }) => {
         {activeTab === "About Flat" ? (
           <>
             <View style={styles.featuresContainer}>
-              <FeatureCard icon="albums-outline" value="1225" label="sqrt.Ft" />
+              <FeatureCard icon="albums-outline" value="1225" label="sqft" />
               <FeatureCard icon="bed-outline" value="3.0" label="Bedrooms" />
               <FeatureCard icon="water-outline" value="2.0" label="Bathrooms" />
               <FeatureCard
@@ -166,7 +201,7 @@ const PropertyDetails = ({ route }) => {
               <FeatureCard icon="wifi-outline" value="Yes" label="Wifi Cable" />
             </View>
           </>
-        ) : (
+        ) : activeTab === "More Info" ? (
           <View style={styles.extraDetailsContainer}>
             {extraDetails.map((detail) => (
               <View key={detail.id} style={styles.extraDetail}>
@@ -185,6 +220,8 @@ const PropertyDetails = ({ route }) => {
               </View>
             ))}
           </View>
+        ) : (
+          <PhotoGallery photos={propertyPhotos} />
         )}
       </ScrollView>
       <View style={styles.bottomSection}>
@@ -209,6 +246,21 @@ const FeatureCard = ({ icon, value, label }) => (
     <Text style={styles.featureLabel}>{label}</Text>
   </View>
 );
+
+// PhotoGallery Component for the Photos Tab
+const PhotoGallery = ({ photos }) => {
+  return (
+    <View style={styles.photoGalleryContainer}>
+      {photos.map((photo) => (
+        <Image
+          key={photo.id}
+          source={{ uri: photo.uri }}
+          style={styles.photo}
+        />
+      ))}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -244,18 +296,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: colors.baseColor,
   },
-  tag: {
-    backgroundColor: "#f5f5f5",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-  },
-  tagText: {
-    fontSize: 12,
-    fontWeight: "600",
-    color: colors.baseColor,
-  },
   description: {
+    paddingRight: 20,
     fontSize: 13,
     color: "gray",
     marginVertical: 10,
@@ -267,8 +309,9 @@ const styles = StyleSheet.create({
   },
   location: {
     fontSize: 14,
-    color: colors.baseColor,
+    color: "gray",
     paddingLeft: 5,
+    fontWeight: "600",
   },
   tabContainer: {
     flexDirection: "row",
@@ -276,7 +319,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   tabButton: {
-    width: "50%",
+    width: "33.3%",
     borderBottomWidth: 1,
     paddingVertical: 10,
     alignItems: "center",
@@ -331,6 +374,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "gray",
   },
+  photoGalleryContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    paddingHorizontal: 10,
+  },
+  photo: {
+    flexDirection: "row",
+    width: 180,
+    height: 160,
+    marginBottom: 15,
+    borderRadius: 5,
+  },
   bottomSection: {
     position: "absolute",
     bottom: 25,
@@ -341,6 +397,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: "center",
     borderTopWidth: 0.3,
+    backgroundColor: "white",
     borderColor: colors.lightGray,
   },
   totalRentContainer: {
