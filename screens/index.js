@@ -5,6 +5,7 @@ import Locations from "./Location";
 import Fav from "./Fav";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../constant/colors";
+import Profile from "./Profile";
 
 const Tab = createBottomTabNavigator();
 
@@ -60,7 +61,7 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Fav}
+        component={Profile}
         options={{
           headerShown: false,
         }}

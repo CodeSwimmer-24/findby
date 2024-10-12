@@ -19,9 +19,9 @@ const Header = () => {
       <View style={styles.headerContainer}>
         <View style={styles.locationContainer}>
           <View style={styles.locationTextContainer}>
-            <Text style={styles.locationLabel}>Let's Find Your</Text>
+            <Text style={styles.locationLabel}>Let's Find Your Place</Text>
             <TouchableOpacity style={styles.locationButton}>
-              <Text style={styles.locationText}>Favorite Home</Text>
+              <Text style={styles.locationText}>Fahad Mahmood</Text>
             </TouchableOpacity>
           </View>
           <Image
@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   locationLabel: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "200",
     color: "gray",
   },
   locationButton: {
-    marginTop: 5,
+    // marginTop: 5,
   },
   locationText: {
     color: colors.baseColor,
