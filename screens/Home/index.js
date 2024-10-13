@@ -17,6 +17,7 @@ import PropertyDetails from "./Screens/PropertyDetails";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import colors from "../../constant/colors";
 import { useIsFocused } from "@react-navigation/native";
+import { getTabBarOptions } from "../../global/TabBarStyle";
 
 const HomeScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -26,6 +27,7 @@ const HomeScreen = ({ navigation }) => {
       const parent = navigation.getParent();
       parent?.setOptions({
         tabBarStyle: { display: "flex" },
+        ...getTabBarOptions()
       });
     }
   }, [isFocused]);
@@ -43,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
         style={styles.registerButton}
         onPress={() => {
           // Handle button press, e.g., navigate to a "Register" screen
-          navigation.navigate("RegisterPlace"); // Example navigation
+          navigation.navigate("RegisterForm"); // Example navigation
         }}
         accessible={true}
         accessibilityLabel="Register Your Place"

@@ -1,6 +1,6 @@
 // components/Profile.js
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -15,8 +15,21 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import colors from "../../constant/colors";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { getTabBarOptions } from "../../global/TabBarStyle";
 
 const Profile = () => {
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      const parent = navigation.getParent();
+      parent?.setOptions({
+        tabBarStyle: { display: "flex" },
+        ...getTabBarOptions()
+      });
+    }
+  }, [isFocused]);
   return (
     <View style={styles.container}>
       {/* Status Bar Configuration */}
@@ -65,7 +78,7 @@ const Profile = () => {
             activeOpacity={0.7}
             onPress={() => {
               // Handle button press, e.g., navigate to "RegisterPlace" screen
-              // navigation.navigate("RegisterPlace");
+              navigation.navigate("RegisterForm");
             }}
           >
             <View style={styles.registerButtonContent}>
