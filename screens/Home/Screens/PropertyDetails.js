@@ -1,3 +1,6 @@
+// components/PropertyDetails/PropertyDetails.js
+
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,11 +11,11 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../../../constant/colors";
+import ContactModal from "./ContactDetails"; // Ensure this is the correct path and filename
 
 const extraDetails = [
   {
@@ -60,6 +63,7 @@ const PropertyDetails = ({ route }) => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [activeTab, setActiveTab] = useState("About Flat");
+  const [isModalVisible, setIsModalVisible] = useState(false); // State for Modal
 
   useEffect(() => {
     const parent = navigation.getParent();
@@ -110,6 +114,7 @@ const PropertyDetails = ({ route }) => {
               {
                 borderBottomColor:
                   activeTab === "About Flat" ? colors.baseColor : "lightgray",
+                borderBottomWidth: activeTab === "About Flat" ? 1.5 : 1.5, // Thicker border for active tab
               },
             ]}
             onPress={() => setActiveTab("About Flat")}
@@ -119,6 +124,7 @@ const PropertyDetails = ({ route }) => {
                 styles.tabText,
                 {
                   color: activeTab === "About Flat" ? colors.baseColor : "gray",
+                  fontWeight: activeTab === "About Flat" ? "600" : "600",
                 },
               ]}
             >
@@ -133,6 +139,7 @@ const PropertyDetails = ({ route }) => {
               {
                 borderBottomColor:
                   activeTab === "More Info" ? colors.baseColor : "lightgray",
+                borderBottomWidth: activeTab === "More Info" ? 1.5 : 1.5, // Thicker border for active tab
               },
             ]}
             onPress={() => setActiveTab("More Info")}
@@ -142,6 +149,7 @@ const PropertyDetails = ({ route }) => {
                 styles.tabText,
                 {
                   color: activeTab === "More Info" ? colors.baseColor : "gray",
+                  fontWeight: activeTab === "More Info" ? "600" : "600",
                 },
               ]}
             >
@@ -156,6 +164,7 @@ const PropertyDetails = ({ route }) => {
               {
                 borderBottomColor:
                   activeTab === "Photos" ? colors.baseColor : "lightgray",
+                borderBottomWidth: activeTab === "Photos" ? 1.5 : 1.5, // Thicker border for active tab
               },
             ]}
             onPress={() => setActiveTab("Photos")}
@@ -165,6 +174,7 @@ const PropertyDetails = ({ route }) => {
                 styles.tabText,
                 {
                   color: activeTab === "Photos" ? colors.baseColor : "gray",
+                  fontWeight: activeTab === "Photos" ? "600" : "600",
                 },
               ]}
             >
@@ -175,7 +185,7 @@ const PropertyDetails = ({ route }) => {
 
         {/* Conditional Rendering based on activeTab */}
         {activeTab === "About Flat" ? (
-          <>
+          <View style={{ marginTop: 20 }}>
             <View style={styles.featuresContainer}>
               <FeatureCard icon="albums-outline" value="1225" label="sqft" />
               <FeatureCard icon="bed-outline" value="3.0" label="Bedrooms" />
@@ -198,9 +208,9 @@ const PropertyDetails = ({ route }) => {
                 value="Yes"
                 label="Balcony"
               />
-              <FeatureCard icon="wifi-outline" value="Yes" label="Wifi Cable" />
+              <FeatureCard icon="home-outline" value="4 th" label="Floor No." />
             </View>
-          </>
+          </View>
         ) : activeTab === "More Info" ? (
           <View style={styles.extraDetailsContainer}>
             {extraDetails.map((detail) => (
@@ -224,6 +234,13 @@ const PropertyDetails = ({ route }) => {
           <PhotoGallery photos={propertyPhotos} />
         )}
       </ScrollView>
+
+      {/* Contact Modal */}
+      <ContactModal
+        isVisible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+      />
+
       <View style={styles.bottomSection}>
         <View style={styles.totalRentContainer}>
           <Text style={styles.totalRentLabel}>Total Rent</Text>
@@ -231,7 +248,10 @@ const PropertyDetails = ({ route }) => {
             ₹ 2500 <Text style={styles.monthlyText}>/monthly</Text>
           </Text>
         </View>
-        <TouchableOpacity style={styles.contactButton}>
+        <TouchableOpacity
+          style={styles.contactButton}
+          onPress={() => setIsModalVisible(true)} // Open Modal on Press
+        >
           <Text style={styles.contactButtonText}>Contact now</Text>
         </TouchableOpacity>
       </View>
@@ -317,17 +337,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
+    // Removed borderBottomWidth and borderColor
   },
   tabButton: {
     width: "33.3%",
-    borderBottomWidth: 1,
-    paddingVertical: 10,
+    paddingVertical: 12,
     alignItems: "center",
-    marginBottom: 20,
+    // Removed borderBottomWidth and borderColor
   },
   tabText: {
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: "600", // This will be overridden conditionally
   },
   featuresContainer: {
     flexDirection: "row",
@@ -353,6 +373,7 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   extraDetailsContainer: {
+    marginTop: 10,
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
@@ -375,13 +396,13 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   photoGalleryContainer: {
+    marginTop: 20,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-evenly",
     paddingHorizontal: 10,
   },
   photo: {
-    flexDirection: "row",
     width: 180,
     height: 160,
     marginBottom: 15,
