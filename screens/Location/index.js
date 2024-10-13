@@ -68,7 +68,7 @@ const Locations = () => {
           {cards.map((card) => (
             <TouchableOpacity
               onPress={() => {
-                navigation.push("PropertyDetails", { card });
+                navigation.navigate("PropertyDetails", { card });
               }}
               key={card.id}
               style={styles.card}
@@ -333,8 +333,8 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     position: "absolute",
-    bottom: 20,
-    right: 20,
+    bottom: 80,
+    right: 30,
     backgroundColor: colors.baseColor,
     width: 50,
     height: 50,

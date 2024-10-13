@@ -1,3 +1,5 @@
+// components/Home.js
+
 import React, { useEffect } from "react";
 import {
   View,
@@ -12,9 +14,9 @@ import TopCards from "../../components/TopCards";
 import NearYou from "../../components/NearYou";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import PropertyDetails from "./Screens/PropertyDetails";
-import { useIsFocused } from "@react-navigation/native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import colors from "../../constant/colors";
+import { useIsFocused } from "@react-navigation/native";
 
 const HomeScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -27,12 +29,11 @@ const HomeScreen = ({ navigation }) => {
       });
     }
   }, [isFocused]);
-
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={styles.container}>
       <Header />
       <Category />
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
         <TopCards navigation={navigation} />
         <NearYou navigation={navigation} />
       </ScrollView>
@@ -44,9 +45,11 @@ const HomeScreen = ({ navigation }) => {
           // Handle button press, e.g., navigate to a "Register" screen
           navigation.navigate("RegisterPlace"); // Example navigation
         }}
+        accessible={true}
+        accessibilityLabel="Register Your Place"
       >
         <MaterialIcons name="add" size={25} color="white" />
-        {/* <Text style={styles.buttonText}>Registe Place</Text> */}
+        {/* <Text style={styles.buttonText}>Register Place</Text> */}
       </TouchableOpacity>
     </View>
   );
@@ -58,15 +61,19 @@ const Home = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="HomeMain"
         component={HomeScreen}
-        options={{ headerShown: false }} // Optional: hide the header for the Home screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="PropertyDetails"
-        options={{ headerShown: false }}
         component={PropertyDetails}
+        options={{
+          headerShown: false,
+          // Optionally, hide the tab bar on this screen
+        }}
       />
+      {/* Add more screens like "RegisterPlace" if needed */}
     </Stack.Navigator>
   );
 };
@@ -74,14 +81,20 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  scrollContent: {
+    paddingBottom: 100, // Ensures content doesn't get hidden behind the tab bar
+  },
   registerButton: {
     position: "absolute",
-    bottom: 10,
-    right: 20,
+    bottom: 80,
+    right: 30,
     backgroundColor: colors.baseColor,
     borderRadius: 100,
     paddingVertical: 10,
-    // paddingHorizontal: 15,
     flexDirection: "row",
     alignItems: "center",
     elevation: 10, // Adds shadow on Android

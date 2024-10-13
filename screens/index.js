@@ -1,11 +1,14 @@
+// components/TabNavigation.js
+
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "./Home";
+import HomeScreen from "./Home/index"; // This is the Stack Navigator defined in Home.js
 import Locations from "./Location";
 import Fav from "./Fav";
+import Profile from "./Profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../constant/colors";
-import Profile from "./Profile";
+import { StyleSheet } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,61 +16,69 @@ const TabNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        // Define the icon for each tab
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "Home") {
-            iconName = focused ? "bed" : "bed-outline";
-          } else if (route.name === "Location") {
-            iconName = focused ? "business" : "business-outline";
-          } else if (route.name === "Fav") {
-            iconName = focused ? "bookmark" : "bookmark-outline";
-          } else if (route.name === "Profile") {
-            iconName = focused ? "person" : "person-outline";
+          switch (route.name) {
+            case "Home":
+              iconName = focused ? "bed" : "bed-outline";
+              break;
+            case "Location":
+              iconName = focused ? "business" : "business-outline";
+              break;
+            case "Fav":
+              iconName = focused ? "bookmark" : "bookmark-outline";
+              break;
+            case "Profile":
+              iconName = focused ? "person" : "person-outline";
+              break;
+            default:
+              iconName = "ellipse";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
+        // Customize the tab bar appearance
         tabBarActiveTintColor: colors.baseColor,
         tabBarInactiveTintColor: "#c0c0c0",
-        tabBarStyle: {
-          height: 55, // Adjust height as needed
-          paddingBottom: 5, // Adjust padding as needed
-          borderTopColor: colors.white,
-        },
-        tabBarShowLabel: false, // Hide labels for all tabs
+        tabBarShowLabel: false, // Hide labels
+        headerShown: false, // Hide headers for all screens
+        tabBarStyle: styles.tabBarStyle,
       })}
     >
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerShown: false, // Hide header if you want a full-screen experience
-        }}
-      />
-      <Tab.Screen
-        name="Location"
-        component={Locations}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="Fav"
-        component={Fav}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Location" component={Locations} />
+      <Tab.Screen name="Fav" component={Fav} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  tabBarStyle: {
+    position: "absolute",
+    bottom: 10, // 20 units from the bottom
+    left: "5%", // 5% left margin
+    right: "5%", // 5% right margin
+    width: "90%", // Ensures the width is 90%
+    height: 60, // Adjust height as needed
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    elevation: 5, // Adds shadow for Android
+    // Shadow for iOS
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.5,
+    // Ensure that children are not clipped
+    overflow: "hidden",
+    // Remove the default top border
+    borderTopWidth: 0,
+  },
+});
 
 export default TabNavigation;

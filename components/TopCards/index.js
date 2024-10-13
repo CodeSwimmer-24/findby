@@ -68,13 +68,13 @@ const TopCards = () => {
                       <Text style={styles.cardLocation}>{card.location}</Text>
                     </View>
                   </View>
-                  <TouchableOpacity style={styles.bookmarkButton}>
+                  {/* <TouchableOpacity style={styles.bookmarkButton}>
                     <MaterialIcons
                       name="bookmark"
                       size={24}
                       color={colors.baseColor}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
               </TouchableOpacity>
             </View>
@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   cardImage: {
-    height: 150,
-    width: 260,
+    height: 120,
+    width: 220,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
   },
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: 14,
     color: colors.gray,
     fontWeight: "600",
   },

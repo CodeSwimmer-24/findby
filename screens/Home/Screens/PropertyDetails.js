@@ -56,6 +56,8 @@ const propertyPhotos = [
   { id: 2, uri: "https://via.placeholder.com/300" },
   { id: 3, uri: "https://via.placeholder.com/300" },
   { id: 4, uri: "https://via.placeholder.com/300" },
+  { id: 5, uri: "https://via.placeholder.com/300" },
+  { id: 6, uri: "https://via.placeholder.com/300" },
 ];
 
 const PropertyDetails = ({ route }) => {
@@ -178,7 +180,7 @@ const PropertyDetails = ({ route }) => {
                 },
               ]}
             >
-              Photos
+              Gallery
             </Text>
           </TouchableOpacity>
         </View>
@@ -289,7 +291,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     width: "100%",
-    height: 260,
+    height: 300,
     justifyContent: "flex-start",
     paddingTop: 20,
   },
@@ -410,12 +412,14 @@ const styles = StyleSheet.create({
   },
   bottomSection: {
     position: "absolute",
-    bottom: 25,
+    bottom: 0,
     left: 0,
     right: 0,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
+    paddingBottom: 25,
+    paddingTop: 10,
     alignItems: "center",
     borderTopWidth: 0.3,
     backgroundColor: "white",

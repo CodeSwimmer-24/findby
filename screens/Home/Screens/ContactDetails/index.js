@@ -123,10 +123,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   subtitle: {
-    fontSize: 16,
-    color: colors.gray,
+    fontSize: 14,
+    color: "gray",
     marginBottom: 20,
     textAlign: "center",
+    paddingHorizontal: 20,
   },
   contactInfoContainer: {
     justifyContent: "center",

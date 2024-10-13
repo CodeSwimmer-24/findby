@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
 import colors from "../../constant/colors";
 import Modal from "react-native-modal"; // Import react-native-modal
@@ -30,22 +30,37 @@ const Search = () => {
           style={styles.searchBox}
           onPress={() => setModalVisible(true)}
         >
-          <MaterialIcons
-            name="location-on"
-            size={24}
-            color={colors.baseColor}
-            style={styles.icon}
-          />
-          <Text style={styles.inputText}>
-            {selectedLocation
-              ? `${selectedLocation}, ${selectedSector}`
-              : "Search by location..."}
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              width: "83%",
+            }}
+          >
+            <AntDesign
+              name="search1"
+              size={22}
+              color={colors.baseColor}
+              style={styles.icon}
+            />
+            <Text style={styles.inputText}>
+              {selectedLocation
+                ? `${selectedLocation}, ${selectedSector}`
+                : "Select Locality For Rent/Buy"}
+            </Text>
+          </View>
+          <Text
+            style={{
+              marginRight: 5,
+              fontSize: 12,
+              color: colors.gray,
+            }}
+          >
+            By All
           </Text>
+          <Entypo name="chevron-down" size={24} color={colors.baseColor} />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.unreadButton}>
-        <Entypo name="unread" size={20} color={colors.baseColor} />
-      </TouchableOpacity>
 
       {/* Modal for selecting location and sector */}
       <Modal
@@ -122,15 +137,15 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   searchContainer: {
-    width: "82%",
+    width: "100%",
   },
   searchBox: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "white",
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 10,
-    borderRadius: 6,
+    borderRadius: 10,
     elevation: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
