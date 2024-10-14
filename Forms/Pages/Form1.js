@@ -30,19 +30,11 @@ const Step1 = ({ formData, setFormData }) => {
                 onChangeText={text => setFormData({ ...formData, locality: text })}
                 style={styles.input}
             />
-
-            <Text style={styles.label}>Owner Name</Text>
+            <Text style={styles.label}>Area</Text>
             <TextInput
-                placeholder="Enter owner name"
-                value={formData.ownerName}
-                onChangeText={text => setFormData({ ...formData, ownerName: text })}
-                style={styles.input}
-            />
-            <Text style={styles.label}>Contact Number</Text>
-            <TextInput
-                placeholder="Contact Number"
-                value={formData.ownerName}
-                onChangeText={text => setFormData({ ...formData, ownerName: text })}
+                placeholder="Enter Area"
+                value={formData.locality}
+                onChangeText={text => setFormData({ ...formData, locality: text })}
                 style={styles.input}
             />
 
@@ -51,9 +43,10 @@ const Step1 = ({ formData, setFormData }) => {
                 placeholder="Enter a short description"
                 value={formData.shortDescription}
                 onChangeText={text => setFormData({ ...formData, shortDescription: text })}
-                style={styles.input}
+                style={[styles.input, styles.textArea]} // Add a separate style for the text area
                 multiline
                 numberOfLines={3}
+                textAlignVertical="top" // This ensures text starts at the top
             />
         </View>
     );
@@ -73,7 +66,7 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: 'white',
-        marginBottom: 5,
+        marginBottom: 2,
         paddingVertical: 12,
         paddingHorizontal: 10,
         borderRadius: 8,

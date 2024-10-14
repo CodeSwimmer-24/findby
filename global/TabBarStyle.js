@@ -15,8 +15,8 @@ export const getTabBarOptions = () => ({
         shadowOffset: { width: 0, height: -2 },
         shadowRadius: 10,
         elevation: 5,
-        borderTopLeftRadius: 50,
-        borderTopLeftRadius: 50,
+        borderTopLeftRadius: 0,
+        borderTopLeftRadius: 0,
     },
 })
 

@@ -18,6 +18,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import colors from "../../constant/colors";
 import { useIsFocused } from "@react-navigation/native";
 import { getTabBarOptions } from "../../global/TabBarStyle";
+import Forms from "../../Forms";
 
 const HomeScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -70,6 +71,14 @@ const Home = () => {
       <Stack.Screen
         name="PropertyDetails"
         component={PropertyDetails}
+        options={{
+          headerShown: false,
+          // Optionally, hide the tab bar on this screen
+        }}
+      />
+      <Stack.Screen
+        name="RegisterForm"
+        component={Forms}
         options={{
           headerShown: false,
           // Optionally, hide the tab bar on this screen

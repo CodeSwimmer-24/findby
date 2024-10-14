@@ -58,11 +58,26 @@ const Forms = () => {
   const renderStep = () => {
     switch (currentStep) {
       case 1:
-        return <Step1 formData={formData} setFormData={setFormData} />;
+        return (
+          <>
+            <Text style={styles.sectionTitle}>Location Details</Text>
+            <Step1 formData={formData} setFormData={setFormData} />
+          </>
+        );
       case 2:
-        return <Step2 formData={formData} setFormData={setFormData} />;
+        return (
+          <>
+            <Text style={styles.sectionTitle}>About Place</Text>
+            <Step2 formData={formData} setFormData={setFormData} />
+          </>
+        );
       case 3:
-        return <Step3 formData={formData} setFormData={setFormData} />;
+        return (
+          <>
+            <Text style={styles.sectionTitle}>Personal Details</Text>
+            <Step3 formData={formData} setFormData={setFormData} />
+          </>
+        );
       default:
         return null;
     }
@@ -125,13 +140,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
     paddingHorizontal: 10,
     paddingVertical: 20,
-
   },
   stepIndicator: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 30,
+    marginBottom: 20,
   },
   step: {
     flexDirection: 'row',
@@ -145,31 +159,38 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   activeCircle: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: colors.baseColor,
   },
   inactiveCircle: {
-    backgroundColor: '#C0C0C0',
+    backgroundColor: colors.lightGray,
   },
   stepText: {
     color: 'white',
     fontWeight: 'bold',
   },
   line: {
-    width: 40,
+    width: 100,
     height: 2,
     backgroundColor: '#C0C0C0',
     marginHorizontal: 5,
   },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+    marginBottom: 5,
+    paddingHorizontal: 10,
+    color: colors.baseColor,
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginBottom: 30,
+    marginBottom: 10,
     alignItems: 'center',
   },
   button: {
     backgroundColor: colors.baseColor,
-    paddingHorizontal: 40,
-    paddingVertical: 12,
+    paddingHorizontal: 50,
+    paddingVertical: 14,
     borderRadius: 50,
     marginHorizontal: 5,
     alignItems: 'center',
@@ -179,7 +200,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.baseColor,
     paddingVertical: 15,
     paddingHorizontal: 20,
-    borderRadius: 8,
+    borderRadius: 50,
     flex: 1,
     marginHorizontal: 5,
     alignItems: 'center',

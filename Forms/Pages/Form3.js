@@ -1,5 +1,3 @@
-// components/forms/Step3.js
-
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import colors from '../../constant/colors';
@@ -7,6 +5,26 @@ import colors from '../../constant/colors';
 const Step3 = ({ formData, setFormData }) => {
     return (
         <View style={styles.formContainer}>
+            {/* Owner Name */}
+            <Text style={styles.label}>Owner Name</Text>
+            <TextInput
+                placeholder="Enter owner name"
+                value={formData.ownerName}
+                onChangeText={text => setFormData({ ...formData, ownerName: text })}
+                style={styles.input}
+            />
+
+            {/* Phone Number */}
+            <Text style={styles.label}>Phone Number</Text>
+            <TextInput
+                placeholder="Enter phone number"
+                value={formData.phoneNumber}
+                onChangeText={text => setFormData({ ...formData, phoneNumber: text })}
+                style={styles.input}
+                keyboardType="phone-pad"  // Use phone-pad for numeric input
+            />
+
+            {/* Rent Price */}
             <Text style={styles.label}>Rent Price ($)</Text>
             <TextInput
                 placeholder="Enter rent price"
@@ -16,6 +34,7 @@ const Step3 = ({ formData, setFormData }) => {
                 keyboardType="numeric"
             />
 
+            {/* Availability Date */}
             <Text style={styles.label}>Availability Date</Text>
             <TextInput
                 placeholder="Enter availability date (e.g., YYYY-MM-DD)"
@@ -36,19 +55,19 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 14,
         marginBottom: 5,
-        marginTop: 15,
+        marginTop: 10,
         fontWeight: '600',
         color: colors.baseColor,
     },
     input: {
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#fff',
         marginBottom: 10,
         paddingVertical: 12,
         paddingHorizontal: 10,
         borderRadius: 8,
-        fontSize: 16,
+        fontSize: 14,
         borderWidth: 1,
-        borderColor: '#ddd',
+        borderColor: 'lightgray',
     },
 });
 

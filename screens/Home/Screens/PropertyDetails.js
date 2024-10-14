@@ -76,7 +76,7 @@ const PropertyDetails = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor={colors.baseColor} />
+      <StatusBar backgroundColor={colors.gray} />
       <ImageBackground
         source={{ uri: card.image }}
         style={styles.imageBackground}
