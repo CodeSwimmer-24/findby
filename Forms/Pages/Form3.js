@@ -25,7 +25,7 @@ const Step3 = ({ formData, setFormData }) => {
             />
 
             {/* Rent Price */}
-            <Text style={styles.label}>Rent Price ($)</Text>
+            <Text style={styles.label}>Rent Price (₹)</Text>
             <TextInput
                 placeholder="Enter rent price"
                 value={formData.rentPrice}
