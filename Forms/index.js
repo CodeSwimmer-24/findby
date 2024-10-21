@@ -7,13 +7,14 @@ import colors from '../constant/colors';
 import Step1 from './Pages/Form1';
 import Step2 from './Pages/Form2';
 import Step3 from './Pages/Form3';
+import Step4 from './Pages/Form4'; // Import Step4
 
 const Forms = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 3;
+  const totalSteps = 4; // Update total steps to 4
 
   const [formData, setFormData] = useState({
     propertyName: '',
@@ -26,6 +27,7 @@ const Forms = () => {
     amenities: '',
     rentPrice: '',
     availabilityDate: '',
+    photos: [], // Add photos field
   });
 
   useEffect(() => {
@@ -78,6 +80,13 @@ const Forms = () => {
             <Step3 formData={formData} setFormData={setFormData} />
           </>
         );
+      case 4:
+        return (
+          <>
+            <Text style={styles.sectionTitle}>Upload Photos</Text>
+            <Step4 formData={formData} setFormData={setFormData} />
+          </>
+        );
       default:
         return null;
     }
@@ -89,7 +98,7 @@ const Forms = () => {
 
       {/* Step Indicator */}
       <View style={styles.stepIndicator}>
-        {[1, 2, 3].map(step => (
+        {[1, 2, 3, 4].map(step => ( // Update step indicator to 4 steps
           <View key={step} style={styles.step}>
             <View
               style={[
@@ -169,7 +178,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   line: {
-    width: 100,
+    width: 60,
     height: 2,
     backgroundColor: '#C0C0C0',
     marginHorizontal: 5,
