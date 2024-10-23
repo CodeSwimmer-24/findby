@@ -56,41 +56,41 @@ const Profile = ({ navigation }) => {
         {/* Features Section */}
         <View style={{ marginTop: 25 }}>
           <SectionHeader title="Feature's Setting" />
-          {renderSettingOption("Register your place", "add-business", MaterialIcons, navigation)}
-          {renderSettingOption("View Property Details", "view-dashboard-outline", MaterialCommunityIcons, navigation)}
-          {renderSettingOption("Edit your Property Details", "circle-edit-outline", MaterialCommunityIcons, navigation)}
-          {renderSettingOption("Remove the Listed Property", "delete-outline", MaterialIcons, navigation)}
+          {renderSettingOption("Register your place", "add-business", MaterialIcons, navigation, left = true)}
+          {renderSettingOption("View Property Details", "view-dashboard-outline", MaterialCommunityIcons, navigation, left = true)}
+          {renderSettingOption("Edit your Property Details", "circle-edit-outline", MaterialCommunityIcons, navigation, left = true)}
+          {renderSettingOption("Remove the Listed Property", "delete-outline", MaterialIcons, navigation, left = true)}
         </View>
 
         {/* Support and Subscription Section */}
         <View style={{ marginTop: 20 }}>
           <SectionHeader title="Support and Subscription" />
-          {renderSettingOption("Subscribe & Unlock all feature's", "currency-rupee", MaterialIcons, navigation)}
-          {renderSettingOption("Feedback & Reports", "message-alert-outline", MaterialCommunityIcons, navigation)}
-          {renderSettingOption("Rate us on Playstore", "star-outline", MaterialIcons, navigation)}
-          {renderSettingOption("Share GherDekho.com", "share-all-outline", MaterialCommunityIcons, navigation)}
+          {renderSettingOption("Subscribe & Unlock all feature's", "currency-rupee", MaterialIcons, navigation, left = true)}
+          {renderSettingOption("Feedback & Reports", "message-alert-outline", MaterialCommunityIcons, navigation, left = true)}
+          {renderSettingOption("Rate us on Playstore", "star-outline", MaterialIcons, navigation, left = true)}
+          {renderSettingOption("Share GherDekho.com", "share-all-outline", MaterialCommunityIcons, navigation, left = true)}
         </View>
 
         {/* Contact Section */}
         <View style={{ marginTop: 20 }}>
           <SectionHeader title="Contact" />
-          {renderSettingOption("About Us", "info-outline", MaterialIcons, navigation)}
-          {renderSettingOption("WhatsApp", "whatsapp", MaterialCommunityIcons, navigation)}
-          {renderSettingOption("Instagram", "instagram", MaterialCommunityIcons, navigation)}
+          {renderSettingOption("About Us", "info-outline", MaterialIcons, navigation, left = true)}
+          {renderSettingOption("WhatsApp", "whatsapp", MaterialCommunityIcons, navigation, left = true)}
+          {renderSettingOption("Instagram", "instagram", MaterialCommunityIcons, navigation, left = true)}
         </View>
 
         {/* Terms and Conditions Section */}
         <View style={{ marginTop: 40 }}>
           <SectionHeader title="Terms Conditions & Policy" />
-          {renderSettingOption("Terms & Conditions", "newspaper-variant-multiple", MaterialCommunityIcons, navigation)}
-          {renderSettingOption("Privacy Policy", "security", MaterialCommunityIcons, navigation)}
+          {renderSettingOption("Terms & Conditions", "newspaper-variant-multiple", MaterialCommunityIcons, navigation, left = true)}
+          {renderSettingOption("Privacy Policy", "security", MaterialCommunityIcons, navigation, left = true)}
         </View>
 
         {/* Logout Section */}
         <View style={{ marginTop: 0, marginBottom: 50 }}>
           <SectionHeader />
-          {renderSettingOption("Logout", "logout", MaterialIcons, navigation)}
-          {renderSettingOption("Delete Account", "delete-outline", MaterialCommunityIcons, navigation)}
+          {renderSettingOption("Logout", "logout", MaterialIcons, navigation, left = false)}
+          {renderSettingOption("Delete Account", "delete-outline", MaterialCommunityIcons, navigation, left = false)}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -104,7 +104,7 @@ const SectionHeader = ({ title }) => (
   </View>
 );
 
-const renderSettingOption = (label, iconName, IconComponent, navigation) => (
+const renderSettingOption = (label, iconName, IconComponent, navigation, left) => (
   <TouchableOpacity style={styles.optionContainer}
     onPress={() => {
       // Handle button press, navigate to specific screen based on label
@@ -121,7 +121,7 @@ const renderSettingOption = (label, iconName, IconComponent, navigation) => (
       <IconComponent name={iconName} size={22} color="#696969" />
       <Text style={styles.optionText}>{label}</Text>
     </View>
-    <Entypo name="chevron-right" size={22} color="#383838" />
+    {left ? <Entypo name="chevron-right" size={22} color="#383838" /> : <Entypo name="chevron-right" size={22} color="#fff" />}
   </TouchableOpacity>
 );
 
