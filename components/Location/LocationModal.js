@@ -117,7 +117,7 @@ const LocationModal = ({ isVisible, onClose }) => {
                         onPress={handleApply}
                         disabled={!tempLocation || !tempSector}
                     >
-                        <Text style={styles.applyButtonText}>Find Now</Text>
+                        <Text style={styles.applyButtonText}>Let's Gooo</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -19,6 +19,7 @@ import colors from "../../constant/colors";
 import { useIsFocused } from "@react-navigation/native";
 import { getTabBarOptions } from "../../global/TabBarStyle";
 import Forms from "../../Forms";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomeScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -33,7 +34,7 @@ const HomeScreen = ({ navigation }) => {
     }
   }, [isFocused]);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header />
       <Category />
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -54,7 +55,7 @@ const HomeScreen = ({ navigation }) => {
         <MaterialIcons name="add" size={25} color="white" />
         {/* <Text style={styles.buttonText}>Register Place</Text> */}
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

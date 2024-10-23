@@ -12,7 +12,7 @@ import {
 import Search from "../Search";
 import colors from "../../constant/colors";
 
-const Header = () => {
+const Header = ({ search }) => {
   return (
     <SafeAreaView>
       <StatusBar backgroundColor={colors.white} />
@@ -31,7 +31,7 @@ const Header = () => {
             style={styles.profileImage}
           />
         </View>
-        <Search />
+        {search == true && <Search />}
       </View>
     </SafeAreaView>
   );

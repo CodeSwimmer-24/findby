@@ -52,8 +52,8 @@ const extraDetails = [
 
 // Dummy photos for the Photos Tab
 const propertyPhotos = [
-  { id: 1, uri: "https://via.placeholder.com/300" },
-  { id: 2, uri: "https://via.placeholder.com/300" },
+  { id: 1, uri: "https://www.atlasinteriors.in/wp-content/uploads/2023/12/0H7A2495-1-1.jpg" },
+  { id: 2, uri: "https://media.designcafe.com/wp-content/uploads/2020/07/23205856/home-interior-design-ideas.jpg" },
   { id: 3, uri: "https://via.placeholder.com/300" },
   { id: 4, uri: "https://via.placeholder.com/300" },
   { id: 5, uri: "https://via.placeholder.com/300" },
@@ -199,7 +199,7 @@ const PropertyDetails = ({ route }) => {
               />
             </View>
             <View style={styles.featuresContainer}>
-              <FeatureCard icon="man-outline" value="Yes" label="WatchMan" />
+              <FeatureCard icon="man-outline" value="Yes" label="Security" />
               <FeatureCard
                 icon="car-sport-outline"
                 value="1 Bike"
@@ -210,7 +210,21 @@ const PropertyDetails = ({ route }) => {
                 value="Yes"
                 label="Balcony"
               />
-              <FeatureCard icon="home-outline" value="4 th" label="Floor No." />
+              <FeatureCard icon="arrow-up-circle-outline" value="4 th" label="Floor No." />
+            </View>
+            <View style={styles.featuresContainer}>
+              <FeatureCard icon="man-outline" value="Yes" label="Furnished" />
+              <FeatureCard
+                icon="backspace-outline"
+                value="Back"
+                label="Phase"
+              />
+              <FeatureCard
+                icon="cloudy-night-outline"
+                value="Yes"
+                label="Balcony"
+              />
+              <FeatureCard icon="arrow-up-circle-outline" value="4 th" label="Floor No." />
             </View>
           </View>
         ) : activeTab === "More Info" ? (
@@ -291,7 +305,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     width: "100%",
-    height: 300,
+    height: 280,
     justifyContent: "flex-start",
     paddingTop: 20,
   },
@@ -358,7 +372,7 @@ const styles = StyleSheet.create({
   },
   featureCard: {
     backgroundColor: "white",
-    elevation: 3,
+    elevation: 2,
     width: "20%",
     paddingVertical: 10,
     borderRadius: 10,
@@ -398,17 +412,12 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   photoGalleryContainer: {
-    marginTop: 20,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    paddingHorizontal: 10,
   },
   photo: {
-    width: 180,
+    width: "50%",
     height: 160,
-    marginBottom: 15,
-    borderRadius: 5,
   },
   bottomSection: {
     position: "absolute",

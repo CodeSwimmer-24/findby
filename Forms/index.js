@@ -1,22 +1,24 @@
-// components/Forms.js
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import colors from '../constant/colors';
 import Step1 from './Pages/Form1';
-import Step2 from './Pages/Form2';
+import FlatForm from './Pages/FlatForm'; // Create a new FlatForm for "Flat" type
+import ShopForm from './Pages/ShopForm'; // Create a new ShopForm for "Shop" type
+import OfficeForm from './Pages/OfficeForm'; // Create a new OfficeForm for "Office" type
 import Step3 from './Pages/Form3';
 import Step4 from './Pages/Form4'; // Import Step4
+import Step2 from "./Pages/Form2"
 
 const Forms = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 4; // Update total steps to 4
+  const totalSteps = 4;
 
   const [formData, setFormData] = useState({
+    propertyType: '',
     propertyName: '',
     address: '',
     city: '',
@@ -27,7 +29,7 @@ const Forms = () => {
     amenities: '',
     rentPrice: '',
     availabilityDate: '',
-    photos: [], // Add photos field
+    photos: [],
   });
 
   useEffect(() => {
@@ -40,7 +42,6 @@ const Forms = () => {
   }, [isFocused]);
 
   const handleNext = () => {
-    // Optional: Add validation before proceeding to the next step
     if (currentStep < totalSteps) {
       setCurrentStep(prev => prev + 1);
     }
@@ -53,7 +54,6 @@ const Forms = () => {
   };
 
   const handleSubmit = () => {
-    // Handle form submission, e.g., send data to backend
     Alert.alert('Form Submitted', JSON.stringify(formData, null, 2));
   };
 
@@ -69,8 +69,11 @@ const Forms = () => {
       case 2:
         return (
           <>
-            <Text style={styles.sectionTitle}>About Place</Text>
-            <Step2 formData={formData} setFormData={setFormData} />
+            <Text style={styles.sectionTitle}>Property Details</Text>
+            {/* Conditionally render different forms based on the property type */}
+            {formData.propertyType === 'Flat' && <Step2 formData={formData} setFormData={setFormData} />}
+            {formData.propertyType === 'Shop' && <ShopForm formData={formData} setFormData={setFormData} />}
+            {formData.propertyType === 'Office' && <OfficeForm formData={formData} setFormData={setFormData} />}
           </>
         );
       case 3:
@@ -98,7 +101,7 @@ const Forms = () => {
 
       {/* Step Indicator */}
       <View style={styles.stepIndicator}>
-        {[1, 2, 3, 4].map(step => ( // Update step indicator to 4 steps
+        {[1, 2, 3, 4].map(step => (
           <View key={step} style={styles.step}>
             <View
               style={[
