@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 38,
     fontWeight: "bold",
-    color: "#000",
+    color: colors.baseColor,
     marginBottom: 25,
   },
   button: {

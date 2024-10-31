@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
-import colors from "../../constant/colors"
+import colors from "../../constant/colors";
 import useLocationStore from "../../store/location";
 import LocationModal from "../Location/LocationModal";
+import Foundation from "@expo/vector-icons/Foundation";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Search = () => {
   // Zustand store values
@@ -32,10 +29,7 @@ const Search = () => {
     <View style={styles.container}>
       {/* Search Box */}
       <View style={styles.searchContainer}>
-        <TouchableOpacity
-          style={styles.searchBox}
-          onPress={toggleModal}
-        >
+        <TouchableOpacity style={styles.searchBox} onPress={toggleModal}>
           <View style={styles.searchContent}>
             <AntDesign
               name="search1"
@@ -50,17 +44,17 @@ const Search = () => {
             </Text>
           </View>
           <View style={styles.searchRightContent}>
-            <Text style={styles.byAllText}>By All</Text>
-            <Entypo name="chevron-down" size={22} color={colors.baseColor} />
+            <MaterialIcons
+              name="filter-list"
+              size={24}
+              color={colors.baseColor}
+            />
           </View>
         </TouchableOpacity>
       </View>
 
       {/* Location Selection Modal */}
-      <LocationModal
-        isVisible={modalVisible}
-        onClose={toggleModal}
-      />
+      <LocationModal isVisible={modalVisible} onClose={toggleModal} />
     </View>
   );
 };

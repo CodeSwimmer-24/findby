@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     marginRight: 10, // Add margin between buttons for better spacing
   },
   selectedButton: {
-    backgroundColor: "#f5f5f5", // Background color for selected category
+    backgroundColor: colors.baseColor, // Background color for selected category
     borderWidth: 0, // No border for selected category
   },
   nonSelectedButton: {
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   selectedText: {
-    color: colors.baseColor, // Text color for selected category
+    color: "white", // Text color for selected category
   },
   nonSelectedText: {
     color: "gray", // Text color for non-selected category

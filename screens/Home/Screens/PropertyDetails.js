@@ -52,8 +52,14 @@ const extraDetails = [
 
 // Dummy photos for the Photos Tab
 const propertyPhotos = [
-  { id: 1, uri: "https://www.atlasinteriors.in/wp-content/uploads/2023/12/0H7A2495-1-1.jpg" },
-  { id: 2, uri: "https://media.designcafe.com/wp-content/uploads/2020/07/23205856/home-interior-design-ideas.jpg" },
+  {
+    id: 1,
+    uri: "https://www.atlasinteriors.in/wp-content/uploads/2023/12/0H7A2495-1-1.jpg",
+  },
+  {
+    id: 2,
+    uri: "https://media.designcafe.com/wp-content/uploads/2020/07/23205856/home-interior-design-ideas.jpg",
+  },
   { id: 3, uri: "https://via.placeholder.com/300" },
   { id: 4, uri: "https://via.placeholder.com/300" },
   { id: 5, uri: "https://via.placeholder.com/300" },
@@ -187,7 +193,7 @@ const PropertyDetails = ({ route }) => {
 
         {/* Conditional Rendering based on activeTab */}
         {activeTab === "About Flat" ? (
-          <View style={{ marginTop: 20 }}>
+          <View style={{ marginTop: 10 }}>
             <View style={styles.featuresContainer}>
               <FeatureCard icon="albums-outline" value="1225" label="sqft" />
               <FeatureCard icon="bed-outline" value="3.0" label="Bedrooms" />
@@ -210,7 +216,11 @@ const PropertyDetails = ({ route }) => {
                 value="Yes"
                 label="Balcony"
               />
-              <FeatureCard icon="arrow-up-circle-outline" value="4 th" label="Floor No." />
+              <FeatureCard
+                icon="arrow-up-circle-outline"
+                value="4 th"
+                label="Floor No."
+              />
             </View>
             <View style={styles.featuresContainer}>
               <FeatureCard icon="man-outline" value="Yes" label="Furnished" />
@@ -224,7 +234,11 @@ const PropertyDetails = ({ route }) => {
                 value="Yes"
                 label="Balcony"
               />
-              <FeatureCard icon="arrow-up-circle-outline" value="4 th" label="Floor No." />
+              <FeatureCard
+                icon="arrow-up-circle-outline"
+                value="4 th"
+                label="Floor No."
+              />
             </View>
           </View>
         ) : activeTab === "More Info" ? (
@@ -277,7 +291,7 @@ const PropertyDetails = ({ route }) => {
 
 const FeatureCard = ({ icon, value, label }) => (
   <View style={styles.featureCard}>
-    <Ionicons name={icon} size={22} color={colors.gray} />
+    <Ionicons name={icon} size={22} color={colors.baseColor} />
     <Text style={styles.featureValue}>{value}</Text>
     <Text style={styles.featureLabel}>{label}</Text>
   </View>
@@ -341,7 +355,7 @@ const styles = StyleSheet.create({
   locationContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 5,
   },
   location: {
     fontSize: 14,
@@ -353,6 +367,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
+    marginTop: 0,
     // Removed borderBottomWidth and borderColor
   },
   tabButton: {

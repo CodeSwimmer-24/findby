@@ -31,7 +31,7 @@ const Header = ({ search }) => {
             style={styles.profileImage}
           />
         </View>
-        {search == true && <Search />}
+        <Search />
       </View>
     </SafeAreaView>
   );
