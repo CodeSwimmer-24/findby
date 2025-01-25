@@ -15,6 +15,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";
 import colors from "../../../../constant/colors";
 import house from "../../../../assets/icons/house.png";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const ContactModal = ({ isVisible, onClose }) => {
   return (
@@ -82,7 +83,7 @@ const ContactModal = ({ isVisible, onClose }) => {
           </View>
 
           <TouchableOpacity style={styles.callButton} onPress={onClose}>
-            <Ionicons name="call-outline" size={24} color={colors.white} />
+            <MaterialIcons name="call" size={24} color="white" />
             <Text style={styles.callButtonText}>Call for Inquiry</Text>
           </TouchableOpacity>
         </View>
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.baseColor,
     paddingVertical: 12,
-    borderRadius: 10,
+    borderRadius: 50,
     marginTop: 10,
     elevation: 5,
     width: "100%",
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
     marginLeft: 10,
-    fontWeight: "600",
+    fontWeight: "400",
   },
 });
 

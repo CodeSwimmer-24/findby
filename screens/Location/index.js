@@ -2,429 +2,337 @@ import React, { useState } from "react";
 import {
   View,
   Text,
+  TextInput,
   TouchableOpacity,
-  Image,
-  StyleSheet,
   ScrollView,
-  Modal,
-  Platform,
+  StyleSheet,
+  Switch,
 } from "react-native";
-import Header from "../../components/Header";
-import Category from "../../components/Categories";
+import { Picker } from "@react-native-picker/picker";
+import { Entypo, FontAwesome } from "@expo/vector-icons";
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import colors from "../../constant/colors";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { useNavigation } from "@react-navigation/native";
-import { Picker } from "@react-native-picker/picker"; // Use this if installed
 
-const cards = [
-  {
-    id: 1,
-    name: "House Name",
-    price: "22000 /month",
-    location: "Thoker No 6, Shaheen Bagh",
-    image:
-      "https://media.istockphoto.com/id/1026205392/photo/beautiful-luxury-home-exterior-at-twilight.jpg?s=612x612&w=0&k=20&c=HOCqYY0noIVxnp5uQf1MJJEVpsH_d4WtVQ6-OwVoeDo=",
-  },
-  // Ensure each card has a unique id
-  {
-    id: 2,
-    name: "House Name",
-    price: "22000 /month",
-    location: "Thoker No 6, Shaheen Bagh",
-    image:
-      "https://media.istockphoto.com/id/1026205392/photo/beautiful-luxury-home-exterior-at-twilight.jpg?s=612x612&w=0&k=20&c=HOCqYY0noIVxnp5uQf1MJJEVpsH_d4WtVQ6-OwVoeDo=",
-  },
-  // Add more unique cards as needed
-  // ...
-];
+export default function App() {
+  const [activeTab, setActiveTab] = useState("Rent");
+  const [city, setCity] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [exactLocation, setExactLocation] = useState(null);
+  const [rentRange, setRentRange] = useState([0, 500000]);
 
-const Locations = () => {
-  const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false); // Control modal visibility
-  const [filters, setFilters] = useState({
-    bhk: "",
-    squareFt: "",
-    bathrooms: "",
-    lift: false,
-    parking: false,
-  });
+  const cityItems = [
+    { label: "Bangalore", value: "bangalore" },
+    { label: "Mumbai", value: "mumbai" },
+    { label: "Delhi", value: "delhi" },
+  ];
 
-  // Function to apply filters (you can enhance this as needed)
-  const applyFilters = () => {
-    // Implement your filter logic here
-    // For demonstration, we'll just close the modal
-    setModalVisible(false);
-  };
+  const locationItems = [
+    { label: "Koramangala", value: "koramangala" },
+    { label: "Whitefield", value: "whitefield" },
+    { label: "Indiranagar", value: "indiranagar" },
+  ];
+
+  const exactLocationItems = [
+    { label: "Exact Location 1", value: "exactLocation1" },
+    { label: "Exact Location 2", value: "exactLocation2" },
+    { label: "Exact Location 3", value: "exactLocation3" },
+  ];
 
   return (
-    <View style={styles.container}>
-      <View style={{ height: 210, backgroundColor: "white" }}>
-        <Header />
-        <Category />
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Entypo name="chevron-left" size={28} color={colors.baseColor} />
+        <Text style={styles.title}>Find your Dream Place</Text>
       </View>
-      <View style={styles.content}>
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          {cards.map((card) => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("PropertyDetails", { card });
-              }}
-              key={card.id}
-              style={styles.card}
+
+      <View style={styles.tabs}>
+        {["Rent", "Buy", "Commercial"].map((tab) => (
+          <Text
+            key={tab}
+            style={[styles.tab, activeTab === tab && styles.activeTab]}
+            onPress={() => setActiveTab(tab)}
+          >
+            {tab}
+          </Text>
+        ))}
+      </View>
+
+      <View style={styles.dropdownContainer}>
+        <Text style={styles.dropdownLabel}>Select City</Text>
+        <View style={styles.pickerWrapper}>
+          <Picker
+            selectedValue={city}
+            onValueChange={(value) => setCity(value)}
+            dropdownIconColor={colors.baseColor}
+          >
+            <Picker.Item label="Select City" value={null} />
+            {cityItems.map((item) => (
+              <Picker.Item
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              />
+            ))}
+          </Picker>
+        </View>
+      </View>
+
+      {city && (
+        <View style={styles.dropdownContainer}>
+          <Text style={styles.dropdownLabel}>Select Location</Text>
+          <View style={styles.pickerWrapper}>
+            <Picker
+              selectedValue={location}
+              onValueChange={(value) => setLocation(value)}
+              dropdownIconColor={colors.baseColor}
             >
-              <Image source={{ uri: card.image }} style={styles.cardImage} />
-              <View style={styles.cardContent}>
-                <Text style={styles.cardTitle}>{card.name}</Text>
-                <View style={styles.locationContainer}>
-                  <FontAwesome6
-                    name="location-dot"
-                    size={16}
-                    color={colors.gray}
-                  />
-                  <Text style={styles.cardLocation}>{card.location}</Text>
-                </View>
-                <View style={styles.detailsContainer}>
-                  <MaterialCommunityIcons
-                    name="crop-landscape"
-                    size={20}
-                    color={colors.gray}
-                  />
-                  <Text style={styles.detailsText}>1200 sqrft</Text>
-                  <MaterialCommunityIcons
-                    name="sofa-single-outline"
-                    size={20}
-                    color={colors.gray}
-                    style={styles.sofaIcon}
-                  />
-                  <Text style={styles.detailsText}>3.0 BHK</Text>
-                </View>
-                <View style={styles.footer}>
-                  <View style={styles.tag}>
-                    <Text style={styles.tagText}>Room Rent</Text>
-                  </View>
-                  <Text style={styles.cardPrice}>₹ {card.price}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
-
-      {/* Fixed Filter Button */}
-      <TouchableOpacity
-        style={styles.filterButton}
-        onPress={() => setModalVisible(true)}
-      >
-        <MaterialCommunityIcons name="filter" size={24} color="white" />
-      </TouchableOpacity>
-
-      {/* Filter Modal */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Filter Properties</Text>
-
-            {/* BHK Type */}
-            <Text style={styles.filterLabel}>BHK Type</Text>
-            <View style={styles.pickerContainer}>
-              <Picker
-                selectedValue={filters.bhk}
-                style={styles.picker}
-                onValueChange={(itemValue) =>
-                  setFilters({ ...filters, bhk: itemValue })
-                }
-              >
-                <Picker.Item label="Select BHK" value="" />
-                <Picker.Item label="1 BHK" value="1BHK" />
-                <Picker.Item label="2 BHK" value="2BHK" />
-                <Picker.Item label="3 BHK" value="3BHK" />
-                <Picker.Item label="4 BHK" value="4BHK" />
-              </Picker>
-            </View>
-
-            {/* Square Footage */}
-            <Text style={styles.filterLabel}>Square Footage</Text>
-            <View style={styles.pickerContainer}>
-              <Picker
-                selectedValue={filters.squareFt}
-                style={styles.picker}
-                onValueChange={(itemValue) =>
-                  setFilters({ ...filters, squareFt: itemValue })
-                }
-              >
-                <Picker.Item label="Select Area" value="" />
-                <Picker.Item label="1000 - 1500 sqft" value="1000-1500" />
-                <Picker.Item label="1501 - 2000 sqft" value="1501-2000" />
-                <Picker.Item label="2001 - 2500 sqft" value="2001-2500" />
-                <Picker.Item label="2501+ sqft" value="2501+" />
-              </Picker>
-            </View>
-
-            {/* Bathrooms */}
-            <Text style={styles.filterLabel}>Bathrooms</Text>
-            <View style={styles.pickerContainer}>
-              <Picker
-                selectedValue={filters.bathrooms}
-                style={styles.picker}
-                onValueChange={(itemValue) =>
-                  setFilters({ ...filters, bathrooms: itemValue })
-                }
-              >
-                <Picker.Item label="Select Bathrooms" value="" />
-                <Picker.Item label="1" value="1" />
-                <Picker.Item label="2" value="2" />
-                <Picker.Item label="3" value="3" />
-                <Picker.Item label="4+" value="4+" />
-              </Picker>
-            </View>
-
-            {/* Lift */}
-            <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={styles.checkbox}
-                onPress={() => setFilters({ ...filters, lift: !filters.lift })}
-              >
-                {filters.lift && (
-                  <MaterialCommunityIcons
-                    name="check-bold"
-                    size={16}
-                    color={colors.baseColor}
-                  />
-                )}
-              </TouchableOpacity>
-              <Text style={styles.checkboxLabel}>Lift</Text>
-            </View>
-
-            {/* Parking */}
-            <View style={styles.checkboxContainer}>
-              <TouchableOpacity
-                style={styles.checkbox}
-                onPress={() =>
-                  setFilters({ ...filters, parking: !filters.parking })
-                }
-              >
-                {filters.parking && (
-                  <MaterialCommunityIcons
-                    name="check-bold"
-                    size={16}
-                    color={colors.baseColor}
-                  />
-                )}
-              </TouchableOpacity>
-              <Text style={styles.checkboxLabel}>Parking</Text>
-            </View>
-
-            {/* Buttons */}
-            <View style={styles.modalActions}>
-              <TouchableOpacity
-                style={styles.resetButton}
-                onPress={() => {
-                  setFilters({
-                    bhk: "",
-                    squareFt: "",
-                    bathrooms: "",
-                    lift: false,
-                    parking: false,
-                  });
-                }}
-              >
-                <Text style={styles.resetButtonText}>Reset</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.applyButton}
-                onPress={applyFilters}
-              >
-                <Text style={styles.applyButtonText}>Apply</Text>
-              </TouchableOpacity>
-            </View>
+              <Picker.Item label="Select Location" value={null} />
+              {locationItems.map((item) => (
+                <Picker.Item
+                  key={item.value}
+                  label={item.label}
+                  value={item.value}
+                />
+              ))}
+            </Picker>
           </View>
         </View>
-      </Modal>
-    </View>
+      )}
+
+      {location && (
+        <View style={styles.dropdownContainer}>
+          <Text style={styles.dropdownLabel}>Select Exact Location</Text>
+          <View style={styles.pickerWrapper}>
+            <Picker
+              selectedValue={exactLocation}
+              onValueChange={(value) => setExactLocation(value)}
+              dropdownIconColor={colors.baseColor}
+            >
+              <Picker.Item label="Select Exact Location" value={null} />
+              {exactLocationItems.map((item) => (
+                <Picker.Item
+                  key={item.value}
+                  label={item.label}
+                  value={item.value}
+                  color={
+                    exactLocation === item.value ? "white" : colors.baseColor
+                  }
+                  style={
+                    exactLocation === item.value ? styles.selectedItem : {}
+                  }
+                />
+              ))}
+            </Picker>
+          </View>
+        </View>
+      )}
+
+      {/* Rest of your components remain the same */}
+      <View style={styles.searchTypeGroup}>
+        <TouchableOpacity
+          style={[styles.searchTypeButton, styles.activeButton]}
+        >
+          <FontAwesome name="map-marker" size={16} color="white" />
+          <Text style={[styles.buttonText, styles.activeBttn]}>
+            Locality Search
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.searchTypeButton}>
+          <FontAwesome name="train" size={16} color={colors.baseColor} />
+          <Text style={styles.buttonText}>Search along Metro</Text>
+        </TouchableOpacity>
+      </View>
+
+      <TextInput
+        style={[styles.input, { marginTop: 10 }]}
+        placeholder="Search up to 3 Localities or Landmarks"
+      />
+
+      <Text style={styles.sectionTitle}>Looking For</Text>
+      <View style={styles.row}>
+        <TouchableOpacity style={[styles.box, styles.activeBox]}>
+          <Text style={[styles.boxText, styles.activeBttn]}>Full House</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.box}>
+          <Text style={styles.boxText}>PG/Hostel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.box}>
+          <Text style={styles.boxText}>Room Sharing</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={styles.sectionTitle}>BHK Type</Text>
+      <View style={styles.row}>
+        {["1 RK", "1 BHK", "2 BHK", "3 BHK", "4 BHK", "4+ BHK"].map(
+          (type, index) => (
+            <TouchableOpacity key={index} style={styles.box}>
+              <Text style={styles.boxText}>{type}</Text>
+            </TouchableOpacity>
+          )
+        )}
+      </View>
+      <View
+        style={{
+          marginLeft: 10,
+          width: "100%",
+        }}
+      >
+        <Text style={styles.sectionTitle}>
+          Rent Range: ₹{rentRange[0]} to ₹{rentRange[1]}
+        </Text>
+        <MultiSlider
+          style={styles.slider}
+          values={rentRange}
+          sliderLength={340}
+          onValuesChange={(values) => setRentRange(values)}
+          min={10000}
+          max={50000}
+          step={2000}
+          selectedStyle={{ backgroundColor: colors.baseColor }}
+          markerStyle={{ backgroundColor: colors.baseColor }}
+        />
+      </View>
+      <TouchableOpacity style={styles.searchButton}>
+        <Text style={styles.searchButtonText}>SEARCH</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Ensure it takes full height
+    flex: 1,
     backgroundColor: "#fff",
+    paddingHorizontal: 22,
+    paddingVertical: 20,
   },
-  content: {
-    flex: 1, // Make sure it stretches to fit available height
-  },
-  scrollContent: {
-    paddingBottom: 120, // Add bottom padding to avoid overlap with the tab bar and buttons
-  },
-  card: {
+  header: {
     flexDirection: "row",
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    marginVertical: 5,
-    marginHorizontal: 20,
-    borderRadius: 20,
-    elevation: 2,
-    backgroundColor: colors.white,
+    alignItems: "center",
+    marginBottom: 20,
   },
-  cardImage: {
-    height: 100,
-    width: 100,
-    borderRadius: 12,
-  },
-  cardContent: {
-    width: "70%",
-    paddingLeft: 20,
-  },
-  cardTitle: {
-    fontSize: 16,
+  title: {
+    fontSize: 18,
     fontWeight: "600",
-    color: colors.baseColor,
-    paddingBottom: 5,
-  },
-  locationContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingBottom: 5,
-  },
-  cardLocation: {
-    fontSize: 12,
-    color: colors.gray,
-    paddingLeft: 5,
-  },
-  detailsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingBottom: 5,
-  },
-  detailsText: {
-    fontSize: 10,
-    color: colors.gray,
-    paddingLeft: 5,
-  },
-  sofaIcon: {
     marginLeft: 10,
+    color: colors.baseColor,
   },
-  footer: {
+  tabs: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    marginBottom: 20,
   },
-  tag: {
-    backgroundColor: "#f5f5f5",
+  tab: {
+    fontSize: 16,
+    color: "gray",
     paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 50,
+    paddingHorizontal: 15,
+    borderBottomWidth: 2,
+    borderColor: "transparent",
   },
-  tagText: {
-    fontSize: 10,
-    fontWeight: "600",
-    color: colors.baseColor,
+  activeTab: {
+    color: "black",
+    borderColor: colors.baseColor,
   },
-  cardPrice: {
-    fontSize: 12,
-    fontWeight: "600",
-    color: colors.baseColor,
-    paddingLeft: 10,
+  dropdownContainer: {
+    marginBottom: 20,
   },
-  filterButton: {
-    position: "absolute",
-    bottom: 80,
-    right: 30,
-    backgroundColor: colors.baseColor,
-    width: 50,
-    height: 50,
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 5, // Adds shadow on Android
-    shadowColor: "#000", // Adds shadow on iOS
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContainer: {
-    marginHorizontal: 30,
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    elevation: 10,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  filterLabel: {
+  dropdownLabel: {
     fontSize: 14,
     color: "gray",
     marginBottom: 5,
   },
-  pickerContainer: {
-    marginBottom: 15,
-  },
-  picker: {
-    height: 50,
-    width: "100%",
-  },
-  checkboxContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 15,
-  },
-  checkbox: {
-    width: 20,
-    height: 20,
+  pickerWrapper: {
     borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 3,
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 10,
+    borderColor: "#d3d3d3",
+    borderRadius: 10,
+    backgroundColor: "#f8f8f8",
   },
-  checkboxLabel: {
-    fontSize: 14,
-    color: "gray",
+  selectedItem: {
+    backgroundColor: colors.baseColor,
   },
-  modalActions: {
+  searchTypeGroup: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 10,
   },
-  resetButton: {
-    width: "49%",
-    backgroundColor: colors.dangerbg,
-    marginRight: 15,
-    borderRadius: 10,
-    justifyContent: "center",
+  searchTypeButton: {
+    flex: 1,
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: colors.baseColor,
+    borderRadius: 5,
+    marginHorizontal: 5,
   },
-  resetButtonText: {
-    color: "red",
-    fontSize: 16,
-  },
-  applyButton: {
-    width: "49%",
+  activeButton: {
     backgroundColor: colors.baseColor,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    elevation: 10,
+    borderColor: colors.baseColor,
+    color: "#fff",
   },
-  applyButtonText: {
+  buttonText: {
+    marginLeft: 5,
+    fontSize: 14,
+    color: colors.baseColor,
+  },
+  activeBttn: {
     color: "white",
+  },
+
+  sectionTitle: {
     fontSize: 16,
-    textAlign: "center",
+    fontWeight: "600",
+    marginVertical: 5,
+    color: colors.baseColor,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  box: {
+    width: "30%",
+    padding: 8,
+    borderWidth: 0.8,
+    borderColor: "gray",
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 5,
+  },
+  activeBox: {
+    backgroundColor: colors.baseColor,
+    borderColor: colors.baseColor,
+  },
+  boxText: {
+    fontSize: 14,
+    color: colors.baseColor,
+  },
+  slider: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: 40,
+    marginBottom: 20,
+  },
+  searchButton: {
+    backgroundColor: colors.baseColor,
+    padding: 12,
+    borderRadius: 10,
+    alignItems: "center",
+    elevation: 5, // For Android
+    shadowColor: "#000", // For iOS
+    shadowOffset: { width: 0, height: 2 }, // For iOS
+    shadowOpacity: 0.25, // For iOS
+    shadowRadius: 3.84, // For iOS
+    margin: 10,
+  },
+  searchButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
-
-export default Locations;

@@ -16,6 +16,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../../../constant/colors";
 import ContactModal from "./ContactDetails"; // Ensure this is the correct path and filename
+import { Entypo } from "@expo/vector-icons";
 
 const extraDetails = [
   {
@@ -54,7 +55,7 @@ const extraDetails = [
 const propertyPhotos = [
   {
     id: 1,
-    uri: "https://www.atlasinteriors.in/wp-content/uploads/2023/12/0H7A2495-1-1.jpg",
+    uri: "https://dynamic.realestateindia.com/prop_images/2788037/1174733_1-350x350.jpg",
   },
   {
     id: 2,
@@ -68,6 +69,7 @@ const propertyPhotos = [
 
 const PropertyDetails = ({ route }) => {
   const { card } = route.params;
+
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [activeTab, setActiveTab] = useState("About Flat");
@@ -84,20 +86,22 @@ const PropertyDetails = ({ route }) => {
     <View style={styles.container}>
       <StatusBar backgroundColor={colors.gray} />
       <ImageBackground
-        source={{ uri: card.image }}
+        source={{
+          uri: "https://dynamic.realestateindia.com/prop_images/2788037/1174733_1-350x350.jpg",
+        }}
         style={styles.imageBackground}
       >
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <AntDesign name="left" size={20} color={colors.baseColor} />
+          <Entypo name="chevron-left" size={24} color={colors.baseColor} />
         </TouchableOpacity>
       </ImageBackground>
       <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
         <View style={styles.detailsContainer}>
           <View style={styles.headerContainer}>
-            <Text style={styles.title}>{card.name}</Text>
+            <Text style={styles.title}>Woodland Apartment</Text>
             <Ionicons name="bookmark-outline" size={24} color="black" />
           </View>
           <Text style={styles.description}>
@@ -110,7 +114,7 @@ const PropertyDetails = ({ route }) => {
               size={20}
               color={colors.baseColor}
             />
-            <Text style={styles.location}>{card.location}, Delhi.</Text>
+            <Text style={styles.location}>Tokher 6 - Shaheen Bag, Delhi.</Text>
           </View>
         </View>
 
@@ -223,7 +227,7 @@ const PropertyDetails = ({ route }) => {
               />
             </View>
             <View style={styles.featuresContainer}>
-              <FeatureCard icon="man-outline" value="Yes" label="Furnished" />
+              <FeatureCard icon="tv-outline" value="Yes" label="Furnished" />
               <FeatureCard
                 icon="backspace-outline"
                 value="Back"
@@ -322,11 +326,12 @@ const styles = StyleSheet.create({
     height: 280,
     justifyContent: "flex-start",
     paddingTop: 20,
+    elevation: 5,
   },
   backButton: {
     marginLeft: 20,
     marginTop: 10,
-    backgroundColor: "white",
+    backgroundColor: "#f6f6f6",
     borderRadius: 50,
     width: 40,
     height: 40,
