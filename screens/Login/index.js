@@ -4,6 +4,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   StyleSheet,
+  StatusBar,
 } from "react-native";
 import React from "react";
 import welcome from "../../assets/icons/welcome.png";
@@ -13,10 +14,11 @@ import colors from "../../constant/colors";
 const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor={colors.baseColor} />
       <ImageBackground source={welcome} style={styles.backgroundImage}>
         <View style={styles.overlay}>
           <Text style={styles.title}>
-            Gharr<Text style={{ color: "gray" }}>Dekho.com</Text>
+            Urban<Text style={{ color: "gray" }}>House.com</Text>
           </Text>
         </View>
         <View style={styles.overlay2}>

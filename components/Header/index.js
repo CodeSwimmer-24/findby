@@ -24,9 +24,9 @@ const Header = () => {
     "Flat Rent",
     "Office Rent",
     "Shop Rent",
-    "Parking",
-    "PG",
-    "Land",
+    "Parking Area",
+    "PG/Hostals",
+    "Open Land",
     "Godown Rent",
   ];
 

@@ -10,6 +10,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../constant/colors";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { getTabBarOptions } from "../global/TabBarStyle";
+import Form from "../Application";
 
 const Tab = createBottomTabNavigator();
 
@@ -74,7 +75,6 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name="Add"
-        component={() => null} // Placeholder for FAB action
         options={{
           tabBarButton: (props) => (
             <CustomTabBarButton {...props}>
@@ -83,6 +83,7 @@ const TabNavigation = () => {
           ),
           tabBarLabel: "", // Hides label for the FAB
         }}
+        component={Form}
       />
       <Tab.Screen
         name="Fav"

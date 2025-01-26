@@ -15,7 +15,7 @@ const Category = () => {
     "Room Rent",
     "Office Rent",
     "Shop Rent",
-    "Parking",
+    "Parking Area",
     "Goudune Rent",
   ];
 
