@@ -10,7 +10,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../constant/colors";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { getTabBarOptions } from "../global/TabBarStyle";
-import Form from "../Application";
+import Form from "../Application/Step1";
 
 const Tab = createBottomTabNavigator();
 

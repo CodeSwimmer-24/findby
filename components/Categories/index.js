@@ -19,7 +19,7 @@ const Category = () => {
     "Goudune Rent",
   ];
 
-  const handleCategoryPress = (category) => {
+  const handleCastegoryPress = (category) => {
     setSelectedCategory(category);
   };
 
