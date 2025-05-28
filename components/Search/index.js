@@ -4,8 +4,6 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
 import colors from "../../constant/colors";
 import useLocationStore from "../../store/location";
-import LocationModal from "../Location/LocationModal";
-import Foundation from "@expo/vector-icons/Foundation";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Search = () => {
@@ -52,9 +50,6 @@ const Search = () => {
           </View>
         </TouchableOpacity>
       </View>
-
-      {/* Location Selection Modal */}
-      <LocationModal isVisible={modalVisible} onClose={toggleModal} />
     </View>
   );
 };

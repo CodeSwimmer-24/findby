@@ -8,36 +8,19 @@ import {
   TextInput,
   ScrollView, // Import ScrollView
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import Modal from "react-native-modal";
-import useLocationStore from "../../store/location";
 import colors from "../../constant/colors";
-import AntDesign from "@expo/vector-icons/AntDesign";
-
-const LOCATIONS = {
-  "New Town": ["Sector 8", "Sector 9", "Sector 5"],
-  "Salt Lake": ["Block A", "Block B", "Block C"],
-  "Park Street": ["Street 1", "Street 2", "Street 3"],
-};
 
 const LocationModal = ({ isVisible, onClose }) => {
-  const { selectedLocation, selectedSector, setLocation } = useLocationStore();
-  const [tempLocation, setTempLocation] = useState(selectedLocation);
-  const [tempSector, setTempSector] = useState(selectedSector);
-  const [rent, setRent] = useState("rent");
-  const [name, setName] = useState(""); // State for name input
   const [phoneNumber, setPhoneNumber] = useState(""); // State for phone number input
 
   const handleApply = () => {
-    setLocation(tempLocation, tempSector);
     onClose();
   };
 
   return (
     <Modal
       isVisible={isVisible}
-      // onBackdropPress={onClose}
-      // onSwipeComplete={onClose}
       swipeDirection="down"
       style={styles.modal}
       animationIn="slideInUp"
@@ -45,136 +28,37 @@ const LocationModal = ({ isVisible, onClose }) => {
       useNativeDriver
     >
       <View style={styles.modalContainer}>
-        {/* Header */}
 
         {/* Scrollable Content */}
         <ScrollView style={styles.scrollView}>
           <View style={styles.headerContainer}>
-            <Image
-              source={{
-                uri: "https://img.freepik.com/premium-vector/delhi-red-fort-sketch_250484-316.jpg",
-              }}
-              style={styles.headerImage}
-              resizeMode="contain"
-            />
-            <Text style={styles.modalTitle}>Enter Your details.</Text>
-            <Text style={styles.modalDescription}>
-              Select the location near which you want to search.
-            </Text>
+
+            <Image source={require("../../assets/icons/phone.png")} style={styles.headerImage} />
+
           </View>
           {/* Name and Phone Inputs */}
-          <View style={styles.inputContainer}>
-            <Text style={styles.pickerLabel}>Enter Your Name</Text>
+          <Text style={styles.label}>Mobile Number</Text>
+          <View style={styles.inputWrapper}>
+            <Text style={styles.countryCode}>+91</Text>
+            <View style={styles.divider} />
             <TextInput
               style={styles.input}
-              placeholder="Enter your name"
-              value={name}
-              onChangeText={setName}
-            />
-            <Text style={styles.pickerLabel}>Enter Your Contact Number</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your phone number"
+              placeholder="9123 456789"
+              keyboardType="phone-pad"
               value={phoneNumber}
               onChangeText={setPhoneNumber}
-              keyboardType="phone-pad"
             />
           </View>
 
-          {/* Location Pickers */}
-          <View style={styles.pickersContainer}>
-            <View style={styles.pickerContainer}>
-              <Text style={styles.pickerLabel}>Your Locality</Text>
-              <View style={styles.pickerWrapper}>
-                <Picker
-                  selectedValue={tempLocation}
-                  onValueChange={(itemValue) => {
-                    setTempLocation(itemValue);
-                    setTempSector(null);
-                  }}
-                  style={styles.picker}
-                  dropdownIconColor="gray"
-                >
-                  <Picker.Item label="Select location" value={null} />
-                  {Object.keys(LOCATIONS).map((location) => (
-                    <Picker.Item
-                      key={location}
-                      label={location}
-                      value={location}
-                    />
-                  ))}
-                </Picker>
-              </View>
-            </View>
 
-            <View style={styles.pickerContainer}>
-              <Text style={styles.pickerLabel}>Your Exact Location</Text>
-              <View style={styles.pickerWrapper}>
-                <Picker
-                  selectedValue={tempSector}
-                  onValueChange={setTempSector}
-                  style={styles.picker}
-                  dropdownIconColor="gray"
-                  enabled={tempLocation !== null}
-                >
-                  <Picker.Item
-                    label={
-                      tempLocation ? "Select sector" : "Select location first"
-                    }
-                    value={null}
-                  />
-                  {tempLocation &&
-                    LOCATIONS[tempLocation].map((sector) => (
-                      <Picker.Item key={sector} label={sector} value={sector} />
-                    ))}
-                </Picker>
-              </View>
-            </View>
-
-            {/* Rent/Buy Options */}
-            <View style={styles.rentBuyContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  setRent("rent");
-                }}
-                style={rent === "rent" ? styles.rentButton : styles.buyButton}
-              >
-                <Text
-                  style={
-                    rent === "rent"
-                      ? styles.rentBuyText
-                      : styles.rentBuyTextDisabled
-                  }
-                >
-                  Rent Property
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  setRent("buy");
-                }}
-                style={rent === "buy" ? styles.rentButton : styles.buyButton}
-              >
-                <Text
-                  style={
-                    rent === "buy"
-                      ? styles.rentBuyText
-                      : styles.rentBuyTextDisabled
-                  }
-                >
-                  Buy Property
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
           {/* Action Buttons */}
           <View style={styles.modalActions}>
             <TouchableOpacity
               style={[styles.applyButton]}
               onPress={handleApply}
-              // disabled={!tempLocation || !tempSector}
+            // disabled={!tempLocation || !tempSector}
             >
-              <Text style={styles.applyButtonText}>Let's Gooo</Text>
+              <Text style={styles.applyButtonText}>Continue</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -194,15 +78,17 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    height: "95%",
     justifyContent: "space-between",
+    height: "40%"
   },
   headerContainer: {
     alignItems: "center",
   },
   headerImage: {
-    height: 150,
-    width: "80%",
+    height: 50,
+    width: 50,
+    marginBottom: 20,
+    marginTop: 20
   },
   modalTitle: {
     fontSize: 18,
@@ -220,6 +106,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     // marginBottom: 20,
+    width: "80%",
   },
   input: {
     height: 50,
@@ -240,6 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "gray",
     marginBottom: 5,
+    marginVertical: 10
   },
   pickerWrapper: {
     borderWidth: 1,
@@ -307,7 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 12,
+    paddingVertical: 15,
     elevation: 5,
   },
   disabledButton: {
@@ -320,6 +208,37 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+  },
+
+  label: {
+    marginBottom: 8,
+    color: "#6e6e6e",
+    fontSize: 16,
+  },
+  inputWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#dcdcdc",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    height: 50,
+    backgroundColor: "#fff",
+  },
+  countryCode: {
+    fontSize: 16,
+    color: colors.baseColor,
+  },
+  divider: {
+    height: "70%",
+    width: 1,
+    backgroundColor: "#c0c0c0",
+    marginHorizontal: 10,
+  },
+  input: {
+    flex: 1,
+    fontSize: 16,
+    color: "#000",
   },
 });
 

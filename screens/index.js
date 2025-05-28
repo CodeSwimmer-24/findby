@@ -1,6 +1,6 @@
 // components/TabNavigation.js
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./Home/index"; // Stack Navigator defined in Home.js
 import Locations from "./Location";
@@ -11,6 +11,7 @@ import colors from "../constant/colors";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { getTabBarOptions } from "../global/TabBarStyle";
 import Form from "../Application/Step1";
+import LocationModal from "../components/Location/LocationModal";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,71 +32,71 @@ const CustomTabBarButton = ({ children, onPress }) => (
   </TouchableOpacity>
 );
 
+
+
+
 const TabNavigation = () => {
+  const [newUser, setNewUser] = useState(true);
+
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          const iconSet = icons[route.name];
-          const iconName = iconSet
-            ? focused
-              ? iconSet.focused
-              : iconSet.unfocused
-            : "ellipse";
-          return (
-            <Ionicons
-              name={iconName}
-              size={size}
-              color={color}
-              accessibilityLabel={`${route.name} Tab`}
-            />
-          );
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          marginBottom: 10,
-          fontWeight: "600", // Adjust label position
-        },
-        tabBarStyle: styles.tabBarStyle, // Custom style for the tab bar
-        tabBarActiveTintColor: colors.baseColor,
-        tabBarInactiveTintColor: "#c0c0c0",
-        headerShown: false,
-      })}
-      lazy={true} // Optional: Improve performance by lazy loading tabs
-    >
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ tabBarLabel: "Home" }}
-      />
-      <Tab.Screen
-        name="Location"
-        component={Locations}
-        options={{ tabBarLabel: "Property" }}
-      />
-      <Tab.Screen
-        name="Add"
-        options={{
-          tabBarButton: (props) => (
-            <CustomTabBarButton {...props}>
-              <Ionicons name="add" size={30} color="#fff" />
-            </CustomTabBarButton>
-          ),
-          tabBarLabel: "", // Hides label for the FAB
-        }}
-        component={Form}
-      />
-      <Tab.Screen
-        name="Fav"
-        component={Fav}
-        options={{ tabBarLabel: "Favorites" }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileRoute}
-        options={{ tabBarLabel: "Profile" }}
-      />
-    </Tab.Navigator>
+    <>
+      {/* Show Location Modal if user is new */}
+      {newUser && (
+        <LocationModal
+          isVisible={newUser}
+          onClose={() => setNewUser(false)}
+        />
+      )}
+
+      {/* Main Tab Navigator */}
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            const iconSet = icons[route.name];
+            const iconName = iconSet
+              ? focused
+                ? iconSet.focused
+                : iconSet.unfocused
+              : "ellipse";
+            return (
+              <Ionicons
+                name={iconName}
+                size={size}
+                color={color}
+                accessibilityLabel={`${route.name} Tab`}
+              />
+            );
+          },
+          tabBarLabelStyle: {
+            fontSize: 12,
+            marginBottom: 10,
+            fontWeight: "600",
+          },
+          tabBarStyle: styles.tabBarStyle,
+          tabBarActiveTintColor: colors.baseColor,
+          tabBarInactiveTintColor: "#c0c0c0",
+          headerShown: false,
+        })}
+        lazy={true}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: "Home" }} />
+        <Tab.Screen name="Location" component={Locations} options={{ tabBarLabel: "Property" }} />
+        <Tab.Screen
+          name="Add"
+          component={Form}
+          options={{
+            tabBarButton: (props) => (
+              <CustomTabBarButton {...props}>
+                <Ionicons name="add" size={30} color="#fff" />
+              </CustomTabBarButton>
+            ),
+            tabBarLabel: "",
+          }}
+        />
+        <Tab.Screen name="Fav" component={Fav} options={{ tabBarLabel: "Favorites" }} />
+        <Tab.Screen name="Profile" component={ProfileRoute} options={{ tabBarLabel: "Profile" }} />
+      </Tab.Navigator>
+    </>
   );
 };
 
