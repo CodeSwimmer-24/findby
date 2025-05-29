@@ -109,9 +109,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.fahad999.findBy'
+    namespace 'com.fahad999.Albayt'
     defaultConfig {
-        applicationId 'com.fahad999.findBy'
+        applicationId 'com.fahad999.Albayt'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

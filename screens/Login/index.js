@@ -18,7 +18,7 @@ const Login = ({ navigation }) => {
       <ImageBackground source={welcome} style={styles.backgroundImage}>
         <View style={styles.overlay}>
           <Text style={styles.title}>
-            Urban<Text style={{ color: "gray" }}>House.com</Text>
+            Albayt<Text style={{ color: "gray" }}>House.com</Text>
           </Text>
         </View>
         <View style={styles.overlay2}>
