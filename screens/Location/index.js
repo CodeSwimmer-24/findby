@@ -13,6 +13,8 @@ import colors from "../../constant/colors";
 import FlatFilter from "./Components/FlatFilter/FlatFilter";
 import OfficeFilter from "./Components/OfficeFilter/OfficeFilter";
 import PgHostals from "./Components/PG/PgHostals";
+import Parking from "./Components/Parking/Parking";
+import Shop from "./Components/Shop/Shop";
 
 export default function App() {
   const [city, setCity] = useState("delhi");
@@ -143,7 +145,8 @@ export default function App() {
       {activePropertyType === "flats" && <FlatFilter />}
       {activePropertyType === "office" && <OfficeFilter />}
       {activePropertyType === "pgHostel" && <PgHostals />}
-
+      {activePropertyType === "parking" && <Parking />}
+      {activePropertyType === "shop" && <Shop />}
       {/* Search Button */}
       <TouchableOpacity style={styles.searchButton}>
         <Text style={styles.searchButtonText}>SEARCH</Text>

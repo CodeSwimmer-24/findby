@@ -6,7 +6,7 @@ const PgHostals = () => {
     const [floor, setFloor] = useState("All");
     const [availableFor, setAvailableFor] = useState(null);
     const [foodAvailable, setFoodAvailable] = useState(null);
-    const [bathroomType, setBathroomType] = useState(null);
+    const [bathroomType, setBathroomType] = useState("All");
     const [facilities, setFacilities] = useState([]);
 
     const toggleFacility = (item) => {
@@ -63,7 +63,7 @@ const PgHostals = () => {
             {renderOptions(['Yes', 'No'], foodAvailable, setFoodAvailable)}
 
             <Text style={styles.sectionTitle}>Bathroom Type</Text>
-            {renderOptions(['Separate', 'Common'], bathroomType, setBathroomType)}
+            {renderOptions(['All', 'Separate', 'Common'], bathroomType, setBathroomType)}
 
             <Text style={styles.sectionTitle}>Facilities</Text>
             {renderMultiSelect(
