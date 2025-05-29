@@ -16,6 +16,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../../../constant/colors";
 import ContactModal from "./ContactDetails"; // Ensure this is the correct path and filename
+import { Entypo } from "@expo/vector-icons";
 
 const extraDetails = [
   {
@@ -52,8 +53,14 @@ const extraDetails = [
 
 // Dummy photos for the Photos Tab
 const propertyPhotos = [
-  { id: 1, uri: "https://www.atlasinteriors.in/wp-content/uploads/2023/12/0H7A2495-1-1.jpg" },
-  { id: 2, uri: "https://media.designcafe.com/wp-content/uploads/2020/07/23205856/home-interior-design-ideas.jpg" },
+  {
+    id: 1,
+    uri: "https://dynamic.realestateindia.com/prop_images/2788037/1174733_1-350x350.jpg",
+  },
+  {
+    id: 2,
+    uri: "https://media.designcafe.com/wp-content/uploads/2020/07/23205856/home-interior-design-ideas.jpg",
+  },
   { id: 3, uri: "https://via.placeholder.com/300" },
   { id: 4, uri: "https://via.placeholder.com/300" },
   { id: 5, uri: "https://via.placeholder.com/300" },
@@ -62,6 +69,7 @@ const propertyPhotos = [
 
 const PropertyDetails = ({ route }) => {
   const { card } = route.params;
+
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [activeTab, setActiveTab] = useState("About Flat");
@@ -78,20 +86,22 @@ const PropertyDetails = ({ route }) => {
     <View style={styles.container}>
       <StatusBar backgroundColor={colors.gray} />
       <ImageBackground
-        source={{ uri: card.image }}
+        source={{
+          uri: "https://dynamic.realestateindia.com/prop_images/2788037/1174733_1-350x350.jpg",
+        }}
         style={styles.imageBackground}
       >
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <AntDesign name="left" size={20} color={colors.baseColor} />
+          <Entypo name="chevron-left" size={24} color={colors.baseColor} />
         </TouchableOpacity>
       </ImageBackground>
       <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
         <View style={styles.detailsContainer}>
           <View style={styles.headerContainer}>
-            <Text style={styles.title}>{card.name}</Text>
+            <Text style={styles.title}>Woodland Apartment</Text>
             <Ionicons name="bookmark-outline" size={24} color="black" />
           </View>
           <Text style={styles.description}>
@@ -104,7 +114,7 @@ const PropertyDetails = ({ route }) => {
               size={20}
               color={colors.baseColor}
             />
-            <Text style={styles.location}>{card.location}, Delhi.</Text>
+            <Text style={styles.location}>Tokher 6 - Shaheen Bag, Delhi.</Text>
           </View>
         </View>
 
@@ -187,7 +197,7 @@ const PropertyDetails = ({ route }) => {
 
         {/* Conditional Rendering based on activeTab */}
         {activeTab === "About Flat" ? (
-          <View style={{ marginTop: 20 }}>
+          <View style={{ marginTop: 10 }}>
             <View style={styles.featuresContainer}>
               <FeatureCard icon="albums-outline" value="1225" label="sqft" />
               <FeatureCard icon="bed-outline" value="3.0" label="Bedrooms" />
@@ -210,10 +220,14 @@ const PropertyDetails = ({ route }) => {
                 value="Yes"
                 label="Balcony"
               />
-              <FeatureCard icon="arrow-up-circle-outline" value="4 th" label="Floor No." />
+              <FeatureCard
+                icon="arrow-up-circle-outline"
+                value="4 th"
+                label="Floor No."
+              />
             </View>
             <View style={styles.featuresContainer}>
-              <FeatureCard icon="man-outline" value="Yes" label="Furnished" />
+              <FeatureCard icon="tv-outline" value="Yes" label="Furnished" />
               <FeatureCard
                 icon="backspace-outline"
                 value="Back"
@@ -224,7 +238,11 @@ const PropertyDetails = ({ route }) => {
                 value="Yes"
                 label="Balcony"
               />
-              <FeatureCard icon="arrow-up-circle-outline" value="4 th" label="Floor No." />
+              <FeatureCard
+                icon="arrow-up-circle-outline"
+                value="4 th"
+                label="Floor No."
+              />
             </View>
           </View>
         ) : activeTab === "More Info" ? (
@@ -277,7 +295,7 @@ const PropertyDetails = ({ route }) => {
 
 const FeatureCard = ({ icon, value, label }) => (
   <View style={styles.featureCard}>
-    <Ionicons name={icon} size={22} color={colors.gray} />
+    <Ionicons name={icon} size={22} color={colors.baseColor} />
     <Text style={styles.featureValue}>{value}</Text>
     <Text style={styles.featureLabel}>{label}</Text>
   </View>
@@ -308,11 +326,12 @@ const styles = StyleSheet.create({
     height: 280,
     justifyContent: "flex-start",
     paddingTop: 20,
+    elevation: 5,
   },
   backButton: {
     marginLeft: 20,
     marginTop: 10,
-    backgroundColor: "white",
+    backgroundColor: "#f6f6f6",
     borderRadius: 50,
     width: 40,
     height: 40,
@@ -341,7 +360,7 @@ const styles = StyleSheet.create({
   locationContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 5,
   },
   location: {
     fontSize: 14,
@@ -353,6 +372,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
+    marginTop: 0,
     // Removed borderBottomWidth and borderColor
   },
   tabButton: {
