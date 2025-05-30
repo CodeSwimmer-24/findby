@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,19 +8,31 @@ import {
 } from "react-native";
 import { useIsFocused, useRoute } from "@react-navigation/native";
 import {
-  MaterialIcons,
-  FontAwesome,
-  AntDesign,
   Entypo,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import Card from "./Cards";
 import colors from "../../constant/colors";
+import SetLocation from "./SetLocation/SetLocation";
 
 const List = ({ navigation }) => {
   const isFocused = useIsFocused();
   const route = useRoute();
   const { category } = route.params;
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [location, setLocation] = useState(null);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  // Auto-open modal when location is null
+  useEffect(() => {
+    if (location === null) {
+      setModalVisible(true);
+    }
+  }, [location]);
 
   useEffect(() => {
     if (isFocused) {
@@ -30,6 +42,11 @@ const List = ({ navigation }) => {
       });
     }
   }, [isFocused]);
+
+  const handleLocationSet = (selectedLocation) => {
+    setLocation(selectedLocation);
+    setModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -63,7 +80,9 @@ const List = ({ navigation }) => {
       <View style={styles.footer}>
         <Entypo name="location" size={20} color={colors.baseColor} />
         <Text style={styles.footerText}>
-          Know <Text style={styles.highlight}>Lalpur</Text> with
+          Know <Text style={styles.highlight}>
+            {location || "Lalpur"}
+          </Text> with
         </Text>
         <TouchableOpacity>
           <Text style={styles.linkText}>Locality Insights</Text>
@@ -74,6 +93,14 @@ const List = ({ navigation }) => {
       <View style={styles.cardContainer}>
         <Card navigation={navigation} />
       </View>
+
+      {/* Location Modal */}
+      <SetLocation
+        isModalVisible={isModalVisible}
+        setModalVisible={setModalVisible}
+        onLocationSet={handleLocationSet}
+        toggleModal={toggleModal}
+      />
     </View>
   );
 };
@@ -162,6 +189,73 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     marginTop: 0,
+  },
+});
+
+// Modal Styles
+const modalStyles = StyleSheet.create({
+  modal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    paddingTop: 12,
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    minHeight: 300,
+  },
+  modalHandle: {
+    width: 40,
+    height: 4,
+    backgroundColor: '#ddd',
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#333',
+  },
+  modalBody: {
+    flex: 1,
+    marginBottom: 20,
+  },
+  modalText: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#666',
+    marginBottom: 30,
+  },
+  modalButton: {
+    backgroundColor: '#f0f0f0',
+    paddingVertical: 15,
+    borderRadius: 8,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+  modalButtonText: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#333',
+    fontWeight: '500',
+  },
+  closeButton: {
+    backgroundColor: '#FF3B30',
+    paddingVertical: 15,
+    borderRadius: 8,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });
 

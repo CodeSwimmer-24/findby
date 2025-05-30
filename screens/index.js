@@ -9,7 +9,6 @@ import ProfileRoute from "../routes/Profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../constant/colors";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { getTabBarOptions } from "../global/TabBarStyle";
 import Form from "../Application/Step1";
 import LocationModal from "../components/Location/LocationModal";
 
@@ -118,9 +117,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   fab: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 56,
+    height: 56,
+    borderRadius: 20,
     backgroundColor: colors.baseColor,
     justifyContent: "center",
     alignItems: "center",

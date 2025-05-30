@@ -36,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Add your content here */}
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 
