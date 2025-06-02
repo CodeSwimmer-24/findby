@@ -89,19 +89,6 @@ const Header = () => {
             ))}
           </View>
         </View>
-        <View>
-          <Text
-            style={{
-              paddingHorizontal: 20,
-              fontSize: 20,
-              fontWeight: "600",
-              color: colors.baseColor,
-            }}
-          >
-            # Top Property Details
-          </Text>
-          <Card />
-        </View>
       </ScrollView>
     </View>
   );
