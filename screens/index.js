@@ -11,6 +11,7 @@ import colors from "../constant/colors";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import Form from "../Application/Step1";
 import LocationModal from "../components/Location/LocationModal";
+import useAuthStore from "../zustand/userAuth";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,15 +36,16 @@ const CustomTabBarButton = ({ children, onPress }) => (
 
 
 const TabNavigation = () => {
-  const [newUser, setNewUser] = useState(true);
+
+  const { isNewUser, setIsNewUser } = useAuthStore();
+  console.log("isNewUser", isNewUser);
 
   return (
     <>
-      {/* Show Location Modal if user is new */}
-      {newUser && (
+      {isNewUser && (
         <LocationModal
-          isVisible={newUser}
-          onClose={() => setNewUser(false)}
+          isVisible={isNewUser}
+          onClose={() => setIsNewUser(false)}
         />
       )}
 

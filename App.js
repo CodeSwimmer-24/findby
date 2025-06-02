@@ -8,8 +8,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import Login from './screens/Login';
-import Home from './screens/Home';
 import TabNavigation from './screens';
+import useAuthStore from './zustand/userAuth';
+import { BASE_URL } from './services';
+import axios from 'axios';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,47 +34,70 @@ export default function App() {
   const handleGoogleLogin = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const { idToken } = await GoogleSignin.signIn();
+      const userInfo = await GoogleSignin.signIn();
 
+      const { idToken } = userInfo;
       if (!idToken) {
         throw new Error('Google Sign-In failed: No ID token received');
       }
 
       const credential = auth.GoogleAuthProvider.credential(idToken);
       await auth().signInWithCredential(credential);
+
+      const { user } = userInfo;
+      const name = user.name;
+      const email = user.email;
+
+      // Call backend with axios
+      const response = await axios.post(`${BASE_URL}/login`, {
+        emailId: email,
+        name: name,
+      });
+
+      const data = response.data;
+      console.log('Backend response:', data);
+
+      // Store in Zustand
+      const setUserInfo = useAuthStore.getState().setUserInfo;
+      setUserInfo(name, email, data.isNewUser);
+
     } catch (error) {
       console.error('Google Sign-In Error:', error);
 
       let errorMessage = 'Login Failed';
+
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         errorMessage = 'Sign in cancelled';
       } else if (error.code === statusCodes.IN_PROGRESS) {
         errorMessage = 'Sign-in in progress already';
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         errorMessage = 'Play services not available';
+      } else if (error.response) {
+        // Handle axios response errors here if needed
+        errorMessage = error.response.data?.message || 'API call failed';
       }
 
       Alert.alert('Error', errorMessage);
     }
   };
-
   const handleLogout = async () => {
     try {
-      // Sign out from Firebase
       await auth().signOut();
-
-      // Sign out from Google
       await GoogleSignin.signOut();
 
-      // Clear user state
-      setUser(null);
+      // Clear Zustand state
+      const clearUserInfo = useAuthStore.getState().clearUserInfo;
+      clearUserInfo();
+
+      console.log('User successfully logged out');
     } catch (error) {
       console.error('Logout Error:', error);
       Alert.alert('Logout Failed', error.message);
     }
   };
 
-
+  // Save this logout function into Zustand
+  useAuthStore.getState().setLogoutFunction(handleLogout);
 
   return (
     <NavigationContainer>
