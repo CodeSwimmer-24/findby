@@ -6,28 +6,25 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import welcome from "../../assets/icons/welcome.png";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../../constant/colors";
 
-const Login = ({ navigation }) => {
+
+const Login = ({ handleGoogleLogin }) => {
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={colors.baseColor} />
       <ImageBackground source={welcome} style={styles.backgroundImage}>
         <View style={styles.overlay}>
           <Text style={styles.title}>
-            Urban<Text style={{ color: "gray" }}>House.com</Text>
+            Albayt<Text style={{ color: "gray" }}>House.com</Text>
           </Text>
         </View>
         <View style={styles.overlay2}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.push("Home");
-            }}
-            style={styles.button}
-          >
+          <TouchableOpacity onPress={handleGoogleLogin} style={styles.button}>
             <Ionicons name="logo-google" size={20} color="white" />
             <Text style={styles.buttonText}>Continue with Google</Text>
           </TouchableOpacity>
@@ -36,6 +33,7 @@ const Login = ({ navigation }) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "243617124026",
+    "project_id": "albayt-d116b",
+    "storage_bucket": "albayt-d116b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243617124026:android:e61c6902a1f831c290fc83",
+        "android_client_info": {
+          "package_name": "com.fahad999.Albayt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243617124026-2psrvve7duep7l6smbi64sfu4f94fgs3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fahad999.Albayt",
+            "certificate_hash": "70d66d4718eed75e6850825d9fb750ce11ad6cba"
+          }
+        },
+        {
+          "client_id": "243617124026-4kj33fivnqeavf2gb1orl5i2cdpbilj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fahad999.Albayt",
+            "certificate_hash": "7e166c21611e3e12d3495b6e58aa22793abfe1fb"
+          }
+        },
+        {
+          "client_id": "243617124026-8u4iq59t63443qfcmavpfkpo1gbc0rv3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fahad999.Albayt",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "243617124026-aofsur2ui7ovvaa5le9o9hem6a716h3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fahad999.Albayt",
+            "certificate_hash": "95ba625b7e3b204a444fc32977ea90a939d2a214"
+          }
+        },
+        {
+          "client_id": "243617124026-ucdj6fh6k5bfs2e91v09lb5lrp2u4lke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAizFjQso2vNVMBrOSF3UgFAB_WuQnEBsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243617124026-ucdj6fh6k5bfs2e91v09lb5lrp2u4lke.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

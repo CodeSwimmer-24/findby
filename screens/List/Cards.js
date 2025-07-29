@@ -7,12 +7,10 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import colors from "../../constant/colors"; // Ensure you have this file or replace `colors` with actual color values.
+import { AntDesign, FontAwesome6, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import colors from "../../constant/colors";
 
 const Card = ({ navigation }) => {
-  // Array of apartment data
   const apartments = [
     {
       id: 1,
@@ -22,8 +20,7 @@ const Card = ({ navigation }) => {
       floor: "Third Floor",
       rooms: "3.0",
       price: "₹ 34,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2788037/1174733_1-350x350.jpg",
+      image: "https://plus.unsplash.com/premium_photo-1676823553207-758c7a66e9bb?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cm9vbSUyMGZvciUyMHJlbnR8ZW58MHx8MHx8fDA%3D",
     },
     {
       id: 2,
@@ -33,8 +30,7 @@ const Card = ({ navigation }) => {
       floor: "First Floor",
       rooms: "4.0",
       price: "₹ 75,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2818157/1215733_1-350x350.jpg",
+      image: "https://plus.unsplash.com/premium_photo-1676823553207-758c7a66e9bb?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cm9vbSUyMGZvciUyMHJlbnR8ZW58MHx8MHx8fDA%3D",
     },
     {
       id: 3,
@@ -44,20 +40,17 @@ const Card = ({ navigation }) => {
       floor: "Third Floor",
       rooms: "3.0",
       price: "₹ 45,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2829187/1238739_1-350x350.jpg",
+      image: "https://plus.unsplash.com/premium_photo-1676823553207-758c7a66e9bb?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cm9vbSUyMGZvciUyMHJlbnR8ZW58MHx8MHx8fDA%3D",
     },
-    // Add more objects for other cards
     {
       id: 4,
       name: "Downtown Apartments",
       location: "120 Main Street, Boston, USA",
       area: "1,300 gaz",
-      floor: "Secound Floor",
+      floor: "Second Floor",
       rooms: "2.0",
       price: "₹ 30,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2803617/1197897_1-350x350.jpg",
+      image: "https://dynamic.realestateindia.com/prop_images/2803617/1197897_1-350x350.jpg",
     },
     {
       id: 5,
@@ -67,63 +60,7 @@ const Card = ({ navigation }) => {
       floor: "Third Floor",
       rooms: "5.0",
       price: "₹ 1,00,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2777137/1151673_1-350x350.jpg",
-    },
-    {
-      id: 6,
-      name: "Mountain Retreat",
-      location: "200 Valley Drive, Denver, USA",
-      area: "2,200 gaz",
-      floor: "Fourth Floor",
-      rooms: "3.0",
-      price: "₹ 60,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2765437/1141237_1-350x350.jpg",
-    },
-    {
-      id: 7,
-      name: "Cityscape Apartments",
-      location: "10 Downtown Ave, NYC, USA",
-      area: "1,800 gaz",
-      floor: "First Floor",
-      rooms: "3.0",
-      price: "₹ 50,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2781937/1171237_1-350x350.jpg",
-    },
-    {
-      id: 8,
-      name: "Greenwood Villas",
-      location: "80 Greenwood Street, SF, USA",
-      area: "2,000 gaz",
-      floor: "Fourth Floor",
-      rooms: "4.0",
-      price: "₹ 55,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2753137/1131127_1-350x350.jpg",
-    },
-    {
-      id: 9,
-      name: "Urban Heights",
-      location: "25 City Road, Houston, USA",
-      area: "1,600 gaz",
-      floor: "Third Floor",
-      rooms: "2.0",
-      price: "₹ 40,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2788037/1174733_1-350x350.jpg",
-    },
-    {
-      id: 10,
-      name: "Golden Residency",
-      location: "55 Sunset Blvd, Seattle, USA",
-      area: "2,100 gaz",
-      floor: "First Floor",
-      rooms: "3.0",
-      price: "₹ 70,000/month",
-      image:
-        "https://dynamic.realestateindia.com/prop_images/2829187/1238739_1-350x350.jpg",
+      image: "https://dynamic.realestateindia.com/prop_images/2777137/1151673_1-350x350.jpg",
     },
   ];
 
@@ -131,31 +68,61 @@ const Card = ({ navigation }) => {
     <ScrollView contentContainerStyle={styles.container}>
       {apartments.map((apartment) => (
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("PropertyDetails", { card: apartments });
-          }}
           key={apartment.id}
           style={styles.card}
+          onPress={() => navigation.navigate("PropertyDetails", { card: apartment })}
         >
-          <Image source={{ uri: apartment.image }} style={styles.image} />
-          <View style={styles.details}>
-            <View style={styles.header}>
+          {/* Property Image */}
+          <View style={{
+            flexDirection: "row",
+            justifyContent: "center"
+          }}>
+            <Image source={{ uri: apartment.image }} style={styles.image} />
+          </View>
+          {/* Property Header */}
+          <View style={styles.header}>
+            <View>
               <Text style={styles.title}>{apartment.name}</Text>
-              <TouchableOpacity>
-                <Ionicons name="bookmark" size={20} color={colors.baseColor} />
-              </TouchableOpacity>
+              <View style={styles.locationContainer}>
+                <FontAwesome6 name="location-dot" size={16} color="#A9A9A9" />
+                <Text style={styles.location}>{apartment.location}</Text>
+              </View>
             </View>
-            <Text style={styles.location}>{apartment.location}</Text>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoText}>
-                <Icon name="building-o" size={14} /> {apartment.area}
-              </Text>
-              <Text style={styles.infoText}>
-                <Icon name="tv" size={14} /> {apartment.floor}
-              </Text>
-              <Text style={styles.infoText}>
-                <Icon name="bed" size={14} /> {apartment.rooms}
-              </Text>
+            <View style={styles.actions}>
+              <Ionicons name="share-social-outline" size={22} color="#A9A9A9" />
+              <MaterialCommunityIcons
+                name="bookmark-outline"
+                size={22}
+                color="#A9A9A9"
+                style={styles.actionIcon}
+              />
+            </View>
+          </View>
+
+          {/* Property Features */}
+          <View style={styles.features}>
+            <View style={styles.featureItem}>
+              <Ionicons name="bed-outline" size={18} color={colors.baseColor} />
+              <Text style={styles.featureText}>{apartment.rooms} Rooms</Text>
+            </View>
+            <View style={styles.featureItem}>
+              <AntDesign name="totop" size={18} color={colors.baseColor} />
+              <Text style={styles.featureText}>{apartment.floor}</Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Ionicons name="tv-outline" size={18} color={colors.baseColor} />
+              <Text style={styles.featureText}>{apartment.area}</Text>
+            </View>
+          </View>
+
+          {/* Property Footer */}
+          <View style={styles.footer}>
+            <View style={styles.agentContainer}>
+              <Image
+                source={{ uri: "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" }}
+                style={styles.agentImage}
+              />
+              <Text style={styles.agentName}>Firoz Khan</Text>
             </View>
             <Text style={styles.price}>{apartment.price}</Text>
           </View>
@@ -167,54 +134,88 @@ const Card = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 16,
+    paddingBottom: 32,
   },
   card: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    marginVertical: 8,
-    overflow: "hidden",
-    elevation: 4,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    padding: 10,
+    marginBottom: 5,
+    paddingBottom: 16,
+
   },
   image: {
-    width: 120,
-    height: 120,
-    borderRadius: 12,
-  },
-  details: {
-    flex: 1,
-    padding: 12,
+    width: "96%",
+    height: 170,
+    resizeMode: "cover",
+    borderRadius: 10
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 8,
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "600",
-    color: colors.baseColor,
+    color: "#333",
+    maxWidth: 240,
+  },
+  locationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 2,
   },
   location: {
     fontSize: 12,
-    color: "#888",
-    marginVertical: 4,
+    color: "#A9A9A9",
+    marginLeft: 6,
+    maxWidth: 240,
   },
-  infoRow: {
+  actions: {
+    flexDirection: "row",
+  },
+  actionIcon: {
+    marginLeft: 12,
+  },
+  features: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 0,
+    paddingTop: 2,
+    marginHorizontal: 15,
+  },
+  featureItem: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  featureText: {
+    fontSize: 12,
+    color: "#666",
+    marginLeft: 6,
+  },
+  footer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 8,
+    paddingHorizontal: 10,
+    paddingTop: 5,
   },
-  infoText: {
-    fontSize: 12,
-    color: "#555",
+  agentContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  agentImage: {
+    width: 25,
+    height: 25,
+    borderRadius: 14,
+    marginRight: 8,
+  },
+  agentName: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#333",
   },
   price: {
     fontSize: 16,

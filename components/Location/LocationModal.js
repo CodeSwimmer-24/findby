@@ -6,16 +6,43 @@ import {
   StyleSheet,
   Image,
   TextInput,
-  ScrollView, // Import ScrollView
+  ScrollView,
+  ActivityIndicator,
+  Alert, // Import ScrollView
 } from "react-native";
 import Modal from "react-native-modal";
 import colors from "../../constant/colors";
+import useAuthStore from "../../zustand/userAuth";
+import { BASE_URL } from "../../services";
+import axios from "axios";
 
 const LocationModal = ({ isVisible, onClose }) => {
   const [phoneNumber, setPhoneNumber] = useState(""); // State for phone number input
+  const [isLoading, setIsLoading] = useState(false);
+  const { email, name } = useAuthStore();
 
-  const handleApply = () => {
-    onClose();
+
+  const handleContinue = async () => {
+    if (phoneNumber.length === 10) {
+      try {
+        setIsLoading(true);
+        const response = await axios.post(`${BASE_URL}/login`, {
+          emailId: email,
+          name: name,
+          contactNo: phoneNumber,
+        });
+        // Optional: check response.status or response.data
+        const data = response.data;
+        console.log('Backend response:', data);
+        onClose();
+      } catch (error) {
+        Alert.alert("Error", "Something went wrong. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      Alert.alert("Invalid", "Please enter a valid 10-digit phone number");
+    }
   };
 
   return (
@@ -46,7 +73,7 @@ const LocationModal = ({ isVisible, onClose }) => {
               placeholder="9123 456789"
               keyboardType="phone-pad"
               value={phoneNumber}
-              onChangeText={setPhoneNumber}
+              onChangeText={(text) => setPhoneNumber(text.replace(/\s/g, ""))}
             />
           </View>
 
@@ -54,11 +81,13 @@ const LocationModal = ({ isVisible, onClose }) => {
           {/* Action Buttons */}
           <View style={styles.modalActions}>
             <TouchableOpacity
-              style={[styles.applyButton]}
-              onPress={handleApply}
-            // disabled={!tempLocation || !tempSector}
+              style={[styles.applyButton, isLoading && styles.disabledButton]}
+              onPress={handleContinue}
+              disabled={isLoading}
             >
-              <Text style={styles.applyButtonText}>Continue</Text>
+              <Text style={styles.applyButtonText}>
+                {isLoading ? <ActivityIndicator size="small" color="#fff" /> : "Continue"}
+              </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -200,11 +229,13 @@ const styles = StyleSheet.create({
   },
   disabledButton: {
     backgroundColor: "#A9A9A9",
+    elevation: 5,
   },
   applyButtonText: {
     color: "white",
     fontSize: 16,
     fontWeight: "500",
+    elevation: 5,
   },
   scrollView: {
     flex: 1,

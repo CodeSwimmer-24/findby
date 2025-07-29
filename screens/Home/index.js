@@ -1,7 +1,7 @@
 // components/Home.js
 
 import React, { useEffect } from "react";
-import { View, StyleSheet, ScrollView, SafeAreaView } from "react-native";
+import { View, StyleSheet, ScrollView, SafeAreaView, Button, Text, TouchableOpacityBase, TouchableOpacity } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useIsFocused } from "@react-navigation/native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -12,9 +12,14 @@ import List from "../List"; // List screen
 import Forms from "../../Forms"; // Forms component
 import colors from "../../constant/colors"; // App color constants
 import { getTabBarOptions } from "../../global/TabBarStyle"; // Custom tab bar styles
+import useAuthStore from "../../zustand/userAuth";
 
 const HomeScreen = ({ navigation }) => {
+
   const isFocused = useIsFocused();
+  const logout = useAuthStore((state) => state.logout);
+
+  const { name, email, isNewUser } = useAuthStore();
 
   // Update tabBarStyle when this screen is focused
   useEffect(() => {
@@ -31,12 +36,17 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       {/* Header Component */}
       <Header />
-
+      <Text style={{ fontSize: 20, fontWeight: "bold" }}>{name}</Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold" }}>{email}</Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold" }}>{isNewUser ? "New User" : "Existing User"}</Text>
+      <TouchableOpacity onPress={logout} >
+        <Text style={styles.logoutText}>Logout</Text>
+      </TouchableOpacity>
       {/* Optional Scrollable Content */}
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Add your content here */}
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 
