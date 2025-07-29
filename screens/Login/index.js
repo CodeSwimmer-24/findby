@@ -13,27 +13,35 @@ import colors from "../../constant/colors";
 
 const Login = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor={colors.baseColor} />
-      <ImageBackground source={welcome} style={styles.backgroundImage}>
-        <View style={styles.overlay}>
-          <Text style={styles.title}>
-            Urban<Text style={{ color: "gray" }}>House.com</Text>
+    <>
+      <View style={styles.container}>
+        <StatusBar backgroundColor={colors.baseColor} />
+        <ImageBackground source={welcome} style={styles.backgroundImage}>
+          <View style={styles.overlay}>
+            <Text style={styles.title}>
+              Urban<Text style={{ color: "gray" }}>House.com</Text>
+            </Text>
+          </View>
+          <View style={styles.overlay2}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push("Home");
+              }}
+              style={styles.button}
+            >
+              <Ionicons name="logo-google" size={20} color="white" />
+              <Text style={styles.buttonText}>Continue with Google</Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+        <View style={styles.overlayTwo}>
+          <Text style={styles.policyText}>
+            By continuing, you agree to our <Text>Terms of Service</Text> and{" "}
+            <Text>Privacy Policy</Text> of UrbanHouse.com !
           </Text>
         </View>
-        <View style={styles.overlay2}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.push("Home");
-            }}
-            style={styles.button}
-          >
-            <Ionicons name="logo-google" size={20} color="white" />
-            <Text style={styles.buttonText}>Continue with Google</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    </View>
+      </View>
+    </>
   );
 };
 
@@ -65,7 +73,14 @@ const styles = StyleSheet.create({
     fontSize: 38,
     fontWeight: "bold",
     color: colors.baseColor,
-    marginBottom: 25,
+    marginBottom: 60,
+  },
+  subTitle: {
+    fontSize: 14,
+    color: colors.baseColor,
+    textAlign: "center",
+    width: "80%",
+    marginBottom: 20,
   },
   button: {
     backgroundColor: colors.baseColor,
@@ -76,6 +91,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 40,
   },
   buttonText: {
     textAlign: "center",
@@ -83,6 +99,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     marginLeft: 10,
+  },
+  overlayTwo: {
+    position: "absolute",
+    bottom: 20,
+    left: 0,
+    right: 0,
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  policyText: {
+    color: "gray",
+    fontSize: 12,
+    lineHeight: 18,
+    marginBottom: 10,
   },
 });
 

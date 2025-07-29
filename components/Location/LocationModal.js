@@ -28,13 +28,13 @@ const LocationModal = ({ isVisible, onClose }) => {
       useNativeDriver
     >
       <View style={styles.modalContainer}>
-
         {/* Scrollable Content */}
         <ScrollView style={styles.scrollView}>
           <View style={styles.headerContainer}>
-
-            <Image source={require("../../assets/icons/phone.png")} style={styles.headerImage} />
-
+            <Image
+              source={require("../../assets/icons/phone.png")}
+              style={styles.headerImage}
+            />
           </View>
           {/* Name and Phone Inputs */}
           <Text style={styles.label}>Mobile Number</Text>
@@ -50,13 +50,12 @@ const LocationModal = ({ isVisible, onClose }) => {
             />
           </View>
 
-
           {/* Action Buttons */}
           <View style={styles.modalActions}>
             <TouchableOpacity
               style={[styles.applyButton]}
               onPress={handleApply}
-            // disabled={!tempLocation || !tempSector}
+              // disabled={!tempLocation || !tempSector}
             >
               <Text style={styles.applyButtonText}>Continue</Text>
             </TouchableOpacity>
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     justifyContent: "space-between",
-    height: "40%"
+    height: "40%",
   },
   headerContainer: {
     alignItems: "center",
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     marginBottom: 20,
-    marginTop: 20
+    marginTop: 20,
   },
   modalTitle: {
     fontSize: 18,
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "gray",
     marginBottom: 5,
-    marginVertical: 10
+    marginVertical: 10,
   },
   pickerWrapper: {
     borderWidth: 1,

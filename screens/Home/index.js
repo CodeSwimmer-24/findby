@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { View, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useIsFocused } from "@react-navigation/native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import Header from "../../components/Header"; // Header component
 import PropertyDetails from "./Screens/PropertyDetails"; // Property Details Screen
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     bottom: 80,
     right: 30,
     backgroundColor: colors.baseColor, // Base app color
-    borderRadius: 100,
+    borderRadius: 10,
     paddingVertical: 10,
     flexDirection: "row",
     alignItems: "center",

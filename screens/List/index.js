@@ -13,6 +13,7 @@ import {
   AntDesign,
   Entypo,
   MaterialCommunityIcons,
+  FontAwesome6,
 } from "@expo/vector-icons";
 import Card from "./Cards";
 import colors from "../../constant/colors";
@@ -61,13 +62,32 @@ const List = ({ navigation }) => {
 
       {/* Footer Section */}
       <View style={styles.footer}>
-        <Entypo name="location" size={20} color={colors.baseColor} />
-        <Text style={styles.footerText}>
-          Know <Text style={styles.highlight}>Lalpur</Text> with
-        </Text>
-        <TouchableOpacity>
-          <Text style={styles.linkText}>Locality Insights</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Entypo name="location" size={18} color={colors.baseColor} />
+          <Text style={styles.footerText}>
+            Look at <Text style={styles.highlight}>Mango</Text> in
+          </Text>
+          <TouchableOpacity>
+            <Text style={styles.linkText}>Jamshedpur</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text
+            style={{
+              fontSize: 13,
+              color: colors.baseColor,
+              fontWeight: "400",
+              marginRight: 5,
+            }}
+          >
+            | Search Move
+          </Text>
+          <FontAwesome6
+            name="location-crosshairs"
+            size={16}
+            color={colors.baseColor}
+          />
+        </View>
       </View>
 
       {/* Card Section */}
@@ -122,7 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#fff",
-    borderRadius: 50,
+    borderRadius: 4,
     paddingHorizontal: 10,
     paddingVertical: 8,
     shadowColor: "#000",
@@ -139,14 +159,14 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: "#f5f5f5",
     paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 10,
+    paddingHorizontal: 10,
     marginTop: 20,
   },
   footerText: {
-    fontSize: 16,
+    fontSize: 12,
     marginLeft: 5,
   },
   highlight: {
@@ -154,7 +174,7 @@ const styles = StyleSheet.create({
     color: colors.baseColor,
   },
   linkText: {
-    fontSize: 16,
+    fontSize: 12,
     color: colors.baseColor,
     marginLeft: 5,
     fontWeight: "600",

@@ -32,9 +32,6 @@ const CustomTabBarButton = ({ children, onPress }) => (
   </TouchableOpacity>
 );
 
-
-
-
 const TabNavigation = () => {
   const [newUser, setNewUser] = useState(true);
 
@@ -42,10 +39,7 @@ const TabNavigation = () => {
     <>
       {/* Show Location Modal if user is new */}
       {newUser && (
-        <LocationModal
-          isVisible={newUser}
-          onClose={() => setNewUser(false)}
-        />
+        <LocationModal isVisible={newUser} onClose={() => setNewUser(false)} />
       )}
 
       {/* Main Tab Navigator */}
@@ -79,8 +73,16 @@ const TabNavigation = () => {
         })}
         lazy={true}
       >
-        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: "Home" }} />
-        <Tab.Screen name="Location" component={Locations} options={{ tabBarLabel: "Property" }} />
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ tabBarLabel: "Home" }}
+        />
+        <Tab.Screen
+          name="Location"
+          component={Locations}
+          options={{ tabBarLabel: "Property" }}
+        />
         <Tab.Screen
           name="Add"
           component={Form}
@@ -93,8 +95,16 @@ const TabNavigation = () => {
             tabBarLabel: "",
           }}
         />
-        <Tab.Screen name="Fav" component={Fav} options={{ tabBarLabel: "Favorites" }} />
-        <Tab.Screen name="Profile" component={ProfileRoute} options={{ tabBarLabel: "Profile" }} />
+        <Tab.Screen
+          name="Fav"
+          component={Fav}
+          options={{ tabBarLabel: "Favorites" }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileRoute}
+          options={{ tabBarLabel: "Profile" }}
+        />
       </Tab.Navigator>
     </>
   );
@@ -120,7 +130,7 @@ const styles = StyleSheet.create({
   fab: {
     width: 60,
     height: 60,
-    borderRadius: 30,
+    borderRadius: 20,
     backgroundColor: colors.baseColor,
     justifyContent: "center",
     alignItems: "center",
