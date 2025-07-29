@@ -14,25 +14,33 @@ import {
 import Card from "./Cards";
 import colors from "../../constant/colors";
 import SetLocation from "./SetLocation/SetLocation";
+import useLocationStore from "../../zustand/userFilterLocation";
 
 const List = ({ navigation }) => {
   const isFocused = useIsFocused();
   const route = useRoute();
   const { category } = route.params;
 
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [location, setLocation] = useState(null);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+  const {
+    toggleModal,
+    setLocation,
+    location,
+    isModalVisible,
+    forceOpenModal,
+    closeModal,
+  } = useLocationStore();
 
   // Auto-open modal when location is null
   useEffect(() => {
     if (location === null) {
-      setModalVisible(true);
+      forceOpenModal();
     }
-  }, [location]);
+  }, [location, forceOpenModal]);
+
+  const handleLocationSet = (selectedLocation) => {
+    setLocation(selectedLocation);
+    closeModal();
+  };
 
   useEffect(() => {
     if (isFocused) {
@@ -42,12 +50,6 @@ const List = ({ navigation }) => {
       });
     }
   }, [isFocused]);
-
-  const handleLocationSet = (selectedLocation) => {
-    setLocation(selectedLocation);
-    setModalVisible(false);
-  };
-
   return (
     <View style={styles.container}>
       {/* Header Section */}
@@ -97,7 +99,6 @@ const List = ({ navigation }) => {
       {/* Location Modal */}
       <SetLocation
         isModalVisible={isModalVisible}
-        setModalVisible={setModalVisible}
         onLocationSet={handleLocationSet}
         toggleModal={toggleModal}
       />

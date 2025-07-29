@@ -1,15 +1,29 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import Modal from 'react-native-modal'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import Modal from 'react-native-modal';
 import { Picker } from '@react-native-picker/picker';
 import colors from '../../../constant/colors';
+import useLocationStore from '../../../zustand/userFilterLocation';
+
 
 const SetLocation = ({ isModalVisible, toggleModal }) => {
+    const {
+        city,
+        setCity,
+        location,
+        setLocation,
+        exactLocation,
+        setExactLocation
+    } = useLocationStore();
 
-    const [city, setCity] = useState("delhi");
-    const [location, setLocation] = useState(null);
-    const [exactLocation, setExactLocation] = useState(null);
-
+    // Reset all values when modal becomes visible
+    useEffect(() => {
+        if (isModalVisible) {
+            setCity(null);
+            setLocation(null);
+            setExactLocation(null);
+        }
+    }, [isModalVisible]);
 
     const cityItems = [
         { label: "Bangalore", value: "bangalore" },
@@ -31,7 +45,6 @@ const SetLocation = ({ isModalVisible, toggleModal }) => {
 
     return (
         <View style={styles.container}>
-
             <Modal
                 isVisible={isModalVisible}
                 style={styles.modal}
@@ -41,35 +54,40 @@ const SetLocation = ({ isModalVisible, toggleModal }) => {
             >
                 <View style={styles.modalContent}>
                     <View style={styles.modalHandle} />
-
                     <Text style={styles.modalTitle}>Set Location</Text>
 
-                    <View style={{ display: "none" }}>
-                        <View style={styles.dropdownContainer}>
-                            <Text style={styles.dropdownLabel}>Select City</Text>
-                            <View style={styles.pickerWrapper}>
-                                <Picker
-                                    selectedValue={city}
-                                    onValueChange={(value) => setCity(value)}
-                                    dropdownIconColor={colors.baseColor}
-                                >
-                                    <Picker.Item label="Select City" value={null} />
-                                    {cityItems.map((item) => (
-                                        <Picker.Item key={item.value} label={item.label} value={item.value} />
-                                    ))}
-                                </Picker>
-                            </View>
+                    {/* City Dropdown */}
+                    <View style={styles.dropdownContainer}>
+                        <Text style={styles.dropdownLabel}>Select City</Text>
+                        <View style={styles.pickerWrapper}>
+                            <Picker
+                                selectedValue={city}
+                                onValueChange={(value) => {
+                                    setCity(value);
+                                    setLocation(null);
+                                    setExactLocation(null);
+                                }}
+                                dropdownIconColor={colors.baseColor}
+                            >
+                                <Picker.Item label="Select City" value={null} />
+                                {cityItems.map((item) => (
+                                    <Picker.Item key={item.value} label={item.label} value={item.value} />
+                                ))}
+                            </Picker>
                         </View>
                     </View>
 
-                    {/* Select Location (conditional) */}
+                    {/* Location Dropdown */}
                     {city && (
                         <View style={styles.dropdownContainer}>
                             <Text style={styles.dropdownLabel}>Select Location</Text>
                             <View style={styles.pickerWrapper}>
                                 <Picker
                                     selectedValue={location}
-                                    onValueChange={(value) => setLocation(value)}
+                                    onValueChange={(value) => {
+                                        setLocation(value);
+                                        setExactLocation(null);
+                                    }}
                                     dropdownIconColor={colors.baseColor}
                                 >
                                     <Picker.Item label="Select Location" value={null} />
@@ -81,7 +99,7 @@ const SetLocation = ({ isModalVisible, toggleModal }) => {
                         </View>
                     )}
 
-                    {/* Select Exact Location (conditional) */}
+                    {/* Exact Location Dropdown */}
                     {location && (
                         <View style={styles.dropdownContainer}>
                             <Text style={styles.dropdownLabel}>Select Exact Location</Text>
@@ -98,7 +116,6 @@ const SetLocation = ({ isModalVisible, toggleModal }) => {
                                             label={item.label}
                                             value={item.value}
                                             color={exactLocation === item.value ? colors.baseColor : colors.baseColor}
-                                            style={exactLocation === item.value ? styles.selectedItem : {}}
                                         />
                                     ))}
                                 </Picker>
@@ -112,10 +129,8 @@ const SetLocation = ({ isModalVisible, toggleModal }) => {
                 </View>
             </Modal>
         </View>
-    )
-}
-
-export default SetLocation
+    );
+};
 
 const styles = StyleSheet.create({
 
@@ -211,3 +226,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 })
+
+
+export default SetLocation;
