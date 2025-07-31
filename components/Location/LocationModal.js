@@ -1,20 +1,68 @@
-import { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   Image,
-  TextInput,
-  ScrollView, // Import ScrollView
+  ScrollView,
 } from "react-native";
 import Modal from "react-native-modal";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import colors from "../../constant/colors";
+import { useNavigation } from "@react-navigation/native";
+
+const cities = [
+  {
+    name: "New Delhi",
+    subtitle: "Delhi, India",
+    icon: require("../../assets/icons/house.png"),
+  },
+  {
+    name: "Lucknow",
+    subtitle: "Uttar Pradesh, India",
+    icon: require("../../assets/icons/house.png"),
+  },
+  {
+    name: "Kolkata",
+    subtitle: "West Bengal, India",
+    icon: require("../../assets/icons/house.png"),
+  },
+  {
+    name: "Ranchi",
+    subtitle: "Jharkhand, India",
+    icon: require("../../assets/icons/house.png"),
+  },
+  {
+    name: "Jamshedpur",
+    subtitle: "Jharkhand, India",
+    icon: require("../../assets/icons/house.png"),
+  },
+  {
+    name: "Patna",
+    subtitle: "Bihar, India",
+    icon: require("../../assets/icons/house.png"),
+  },
+];
+
+const CityCard = ({ name, subtitle, icon, onPress }) => (
+  <TouchableOpacity style={styles.cityCard} onPress={onPress}>
+    <View style={styles.cityInfo}>
+      <Image source={icon} style={styles.cityIcon} />
+      <View style={styles.cityTextContainer}>
+        <Text style={styles.cityName}>{name}</Text>
+        <Text style={styles.citySubtitle}>{subtitle}</Text>
+      </View>
+    </View>
+    <FontAwesome name="angle-right" size={24} color={colors.baseColor} />
+  </TouchableOpacity>
+);
 
 const LocationModal = ({ isVisible, onClose }) => {
-  const [phoneNumber, setPhoneNumber] = useState(""); // State for phone number input
+  const navigation = useNavigation();
 
-  const handleApply = () => {
+  const handleCitySelect = (cityName) => {
+    navigation.navigate("Home", { selectedCity: cityName });
     onClose();
   };
 
@@ -22,51 +70,37 @@ const LocationModal = ({ isVisible, onClose }) => {
     <Modal
       isVisible={isVisible}
       swipeDirection="down"
+      onBackdropPress={onClose}
+      onSwipeComplete={onClose}
       style={styles.modal}
       animationIn="slideInUp"
       animationOut="slideOutDown"
       useNativeDriver
     >
       <View style={styles.modalContainer}>
-        {/* Scrollable Content */}
         <ScrollView style={styles.scrollView}>
-          <View style={styles.headerContainer}>
-            <Image
-              source={require("../../assets/icons/phone.png")}
-              style={styles.headerImage}
-            />
-          </View>
-          {/* Name and Phone Inputs */}
-          <Text style={styles.label}>Mobile Number</Text>
-          <View style={styles.inputWrapper}>
-            <Text style={styles.countryCode}>+91</Text>
-            <View style={styles.divider} />
-            <TextInput
-              style={styles.input}
-              placeholder="9123 456789"
-              keyboardType="phone-pad"
-              value={phoneNumber}
-              onChangeText={setPhoneNumber}
-            />
-          </View>
+          <Text style={styles.title}>Select Your Location</Text>
+          <Text style={styles.subtitle}>
+            Please select your location where you want to see the Property
+          </Text>
 
-          {/* Action Buttons */}
-          <View style={styles.modalActions}>
-            <TouchableOpacity
-              style={[styles.applyButton]}
-              onPress={handleApply}
-              // disabled={!tempLocation || !tempSector}
-            >
-              <Text style={styles.applyButtonText}>Continue</Text>
-            </TouchableOpacity>
-          </View>
+          {cities.map((city, index) => (
+            <CityCard
+              key={index}
+              name={city.name}
+              subtitle={city.subtitle}
+              icon={city.icon}
+              onPress={() => handleCitySelect(city.name)}
+            />
+          ))}
         </ScrollView>
       </View>
     </Modal>
   );
 };
 
-// Stylesheet
+export default LocationModal;
+
 const styles = StyleSheet.create({
   modal: {
     justifyContent: "flex-end",
@@ -77,168 +111,56 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    justifyContent: "space-between",
     height: "90%",
   },
-  headerContainer: {
-    alignItems: "center",
+  scrollView: {
+    flexGrow: 1,
   },
-  headerImage: {
-    height: 50,
-    width: 50,
-    marginBottom: 20,
-    marginTop: 20,
-  },
-  modalTitle: {
-    fontSize: 18,
+  title: {
+    fontSize: 22,
     fontWeight: "600",
-    marginTop: 20,
-    textAlign: "left",
     color: colors.baseColor,
-  },
-  modalDescription: {
-    fontSize: 12,
-    fontWeight: "300",
-    color: "gray",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  inputContainer: {
-    // marginBottom: 20,
-    width: "80%",
-  },
-  input: {
-    height: 50,
-    borderColor: "#D3D3D3",
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    paddingLeft: 10,
-  },
-  pickersContainer: {
-    flex: 1,
-    justifyContent: "flex-start",
-  },
-  pickerContainer: {
-    marginBottom: 15,
-  },
-  pickerLabel: {
-    fontSize: 14,
-    color: "gray",
+    marginTop: 10,
     marginBottom: 5,
-    marginVertical: 10,
+    paddingHorizontal: 10,
   },
-  pickerWrapper: {
-    borderWidth: 1,
-    borderColor: "#D3D3D3",
-    borderRadius: 8,
-    overflow: "hidden",
+  subtitle: {
+    fontSize: 12,
+    color: "#666",
+    marginBottom: 20,
+    paddingHorizontal: 10,
   },
-  picker: {
-    height: 50,
-    width: "100%",
-    color: "#000",
-  },
-  rentBuyContainer: {
+  cityCard: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 10,
+    elevation: 2,
+    backgroundColor: "#fff",
+    marginBottom: 25,
     marginHorizontal: 5,
   },
-  rentButton: {
-    width: "48%",
-    backgroundColor: colors.baseColor,
-    paddingVertical: 10,
-    borderRadius: 5,
-    elevation: 3,
-  },
-  buyButton: {
-    width: "48%",
-    borderWidth: 0.6,
-    borderColor: "#a0a0a0",
-    paddingVertical: 10,
-    borderRadius: 5,
-  },
-  rentBuyText: {
-    textAlign: "center",
-    color: "white",
-  },
-  rentBuyTextDisabled: {
-    textAlign: "center",
-    color: colors.baseColor,
-  },
-  modalActions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: 20,
-  },
-  cancelButton: {
-    flex: 0.4,
-    marginRight: 10,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    flexDirection: "row",
-  },
-  cancelButtonText: {
-    color: colors.baseColor,
-    fontSize: 16,
-    fontWeight: "400",
-    marginRight: 5,
-  },
-  applyButton: {
-    flex: 1,
-    backgroundColor: colors.baseColor,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 15,
-    elevation: 5,
-  },
-  disabledButton: {
-    backgroundColor: "#A9A9A9",
-  },
-  applyButtonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  scrollView: {
-    flex: 1,
-  },
-
-  label: {
-    marginBottom: 8,
-    color: "#6e6e6e",
-    fontSize: 16,
-  },
-  inputWrapper: {
+  cityInfo: {
     flexDirection: "row",
     alignItems: "center",
-    borderColor: "#dcdcdc",
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    height: 50,
-    backgroundColor: "#fff",
   },
-  countryCode: {
+  cityIcon: {
+    width: 40,
+    height: 40,
+    resizeMode: "contain",
+  },
+  cityTextContainer: {
+    marginLeft: 10,
+  },
+  cityName: {
+    fontWeight: "600",
     fontSize: 16,
     color: colors.baseColor,
   },
-  divider: {
-    height: "70%",
-    width: 1,
-    backgroundColor: "#c0c0c0",
-    marginHorizontal: 10,
-  },
-  input: {
-    flex: 1,
-    fontSize: 16,
-    color: "#000",
+  citySubtitle: {
+    fontSize: 12,
+    color: "#666",
   },
 });
-
-export default LocationModal;

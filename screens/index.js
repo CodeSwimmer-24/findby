@@ -16,7 +16,7 @@ import LocationModal from "../components/Location/LocationModal";
 const Tab = createBottomTabNavigator();
 
 const icons = {
-  Home: { focused: "home", unfocused: "home-outline" },
+  Home: { focused: "play", unfocused: "play-outline" },
   Location: { focused: "business", unfocused: "business-outline" },
   Fav: { focused: "bookmark", unfocused: "bookmark-outline" },
   Profile: { focused: "person", unfocused: "person-outline" },
@@ -76,7 +76,7 @@ const TabNavigation = () => {
         <Tab.Screen
           name="Home"
           component={HomeScreen}
-          options={{ tabBarLabel: "Home" }}
+          options={{ tabBarLabel: "Welcome" }}
         />
         <Tab.Screen
           name="Location"

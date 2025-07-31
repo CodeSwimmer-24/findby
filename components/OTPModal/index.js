@@ -14,7 +14,7 @@ import colors from "../../constant/colors"; // adjust path as needed
 const OtpVerificationScreen = ({ navigation, route }) => {
   const phoneNumber = route?.params?.phoneNumber || "+91 9123456789";
 
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [otp, setOtp] = useState(["", "", "", ""]);
   const [timer, setTimer] = useState(60);
   const inputs = useRef([]);
 
@@ -28,6 +28,15 @@ const OtpVerificationScreen = ({ navigation, route }) => {
       return () => clearInterval(interval);
     }
   }, [timer]);
+
+  useEffect(() => {
+    // Focus the first input box to show keyboard
+    const timeout = setTimeout(() => {
+      inputs.current[0]?.focus();
+    }, 300); // small delay helps on slower devices
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   const handleOTPChange = (text, index) => {
     if (text.length > 1) return;
@@ -46,7 +55,7 @@ const OtpVerificationScreen = ({ navigation, route }) => {
 
   const handleVerify = () => {
     const fullOtp = otp.join("");
-    if (fullOtp.length === 6) {
+    if (fullOtp.length === 4) {
       console.log("OTP:", fullOtp);
       navigation.navigate("Home"); // Change to actual next screen
     } else {
@@ -69,9 +78,9 @@ const OtpVerificationScreen = ({ navigation, route }) => {
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={styles.title}>Enter the Verification Code.</Text>
+        <Text style={styles.title}>Enter the Verification Code. OTP</Text>
         <Text style={styles.subtitle}>
-          Please check the SMS to verify the phone number provided
+          Please check the SMS and enter OTP to verify the phone number provided
         </Text>
         <Text style={styles.phoneText}>{phoneNumber}</Text>
 
@@ -129,17 +138,18 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    color: "#555",
+    fontWeight: "300",
+    color: "gray",
   },
   phoneText: {
     fontSize: 16,
-    color: colors.baseColor,
+    color: "gray",
     fontWeight: "500",
     marginTop: 6,
   },
   otpContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     marginVertical: 25,
   },
   otpInput: {

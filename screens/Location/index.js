@@ -21,7 +21,6 @@ export default function App() {
   const [location, setLocation] = useState(null);
   const [exactLocation, setExactLocation] = useState(null);
 
-
   const [activePropertyType, setActivePropertyType] = useState("flats");
 
   const cityItems = [
@@ -60,7 +59,6 @@ export default function App() {
         <Text style={styles.title}>Find your Dream Place</Text>
       </View>
 
-
       {/* Select City */}
 
       <View style={{ display: "none" }}>
@@ -74,7 +72,11 @@ export default function App() {
             >
               <Picker.Item label="Select City" value={null} />
               {cityItems.map((item) => (
-                <Picker.Item key={item.value} label={item.label} value={item.value} />
+                <Picker.Item
+                  key={item.value}
+                  label={item.label}
+                  value={item.value}
+                />
               ))}
             </Picker>
           </View>
@@ -93,7 +95,11 @@ export default function App() {
             >
               <Picker.Item label="Select Location" value={null} />
               {locationItems.map((item) => (
-                <Picker.Item key={item.value} label={item.label} value={item.value} />
+                <Picker.Item
+                  key={item.value}
+                  label={item.label}
+                  value={item.value}
+                />
               ))}
             </Picker>
           </View>
@@ -116,8 +122,12 @@ export default function App() {
                   key={item.value}
                   label={item.label}
                   value={item.value}
-                  color={exactLocation === item.value ? "white" : colors.baseColor}
-                  style={exactLocation === item.value ? styles.selectedItem : {}}
+                  color={
+                    exactLocation === item.value ? "white" : colors.baseColor
+                  }
+                  style={
+                    exactLocation === item.value ? styles.selectedItem : {}
+                  }
                 />
               ))}
             </Picker>
@@ -125,18 +135,36 @@ export default function App() {
         </View>
       )}
 
-
       {/* Locality Search Input */}
       <TextInput
-        style={[styles.input, { marginTop: 10, marginLeft: 10, marginBottom: 5 }]}
+        style={[
+          styles.input,
+          { marginTop: 10, marginLeft: 10, marginBottom: 5 },
+        ]}
         placeholder="Whats on your mind?"
       />
 
       {/* Looking For */}
       <View style={styles.searchTypeGroup}>
         {propertyType.map((item, index) => (
-          <TouchableOpacity key={index} onPress={() => setActivePropertyType(item.value)} style={activePropertyType === item.value ? styles.activeButton : styles.searchTypeButton}>
-            <Text style={activePropertyType === item.value ? styles.activeBttn : styles.buttonText}>{item.label}</Text>
+          <TouchableOpacity
+            key={index}
+            onPress={() => setActivePropertyType(item.value)}
+            style={
+              activePropertyType === item.value
+                ? styles.activeButton
+                : styles.searchTypeButton
+            }
+          >
+            <Text
+              style={
+                activePropertyType === item.value
+                  ? styles.activeBttn
+                  : styles.buttonText
+              }
+            >
+              {item.label}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -148,11 +176,35 @@ export default function App() {
       {activePropertyType === "parking" && <Parking />}
       {activePropertyType === "shop" && <Shop />}
       {/* Search Button */}
-      <TouchableOpacity style={styles.searchButton}>
-        <Text style={styles.searchButtonText}>SEARCH</Text>
-      </TouchableOpacity>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <TouchableOpacity
+          style={[
+            styles.searchButton,
+            {
+              backgroundColor: "#fff",
+              borderColor: colors.baseColor,
+              borderWidth: 0.5,
+              elevation: 0,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.searchButtonText,
+              {
+                color: colors.baseColor,
+                fontWeight: "600",
+              },
+            ]}
+          >
+            Clear
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.searchButton}>
+          <Text style={styles.searchButtonText}>Search</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
-
   );
 }
 
@@ -246,7 +298,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     textAlign: "center",
     marginVertical: 5,
-    elevation: 3
+    elevation: 3,
   },
   buttonText: {
     marginLeft: 5,
@@ -258,8 +310,8 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     backgroundColor: colors.baseColor,
-    padding: 12,
-    borderRadius: 10,
+    paddingVertical: 15,
+    borderRadius: 5,
     alignItems: "center",
     elevation: 5, // For Android
     shadowColor: "#000", // For iOS
@@ -267,6 +319,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25, // For iOS
     shadowRadius: 3.84, // For iOS
     marginBottom: 150,
+    width: "48%",
   },
   searchButtonText: {
     color: "#fff",

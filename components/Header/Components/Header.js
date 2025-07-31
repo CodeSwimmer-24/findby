@@ -93,10 +93,10 @@ const HeaderHero = () => {
             <View
               style={{
                 backgroundColor: "#fff",
-                elevation: 5,
+                elevation: 3,
                 paddingVertical: 10,
                 paddingHorizontal: 10,
-                borderRadius: 10,
+                borderRadius: 8,
               }}
             >
               <Ionicons name={item.icon} size={24} color={colors.baseColor} />
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    elevation: 5,
+    elevation: 1,
   },
   topRow: {
     flexDirection: "row",
@@ -147,13 +147,13 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     backgroundColor: "#fff",
-    borderRadius: 10,
-    paddingVertical: 14,
-    paddingHorizontal: 10,
+    borderRadius: 5,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
     alignItems: "center",
     marginTop: 20,
-    elevation: 5,
-    marginHorizontal: 6,
+    elevation: 2,
+    marginHorizontal: 12,
   },
   dropdown: {
     flexDirection: "row",
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
   quickOptions: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     marginTop: 25,
   },
   optionItem: {
