@@ -5,45 +5,65 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import welcome from "../../assets/icons/welcome.png";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import colors from "../../constant/colors";
 
 const Login = ({ navigation }) => {
+  const [mobile, setMobile] = useState("");
+
+  const handleLogin = () => {
+    if (mobile.length === 10) {
+      navigation.push("OtpVerificationScreen");
+    } else {
+      alert("Please enter a valid 10-digit number");
+    }
+  };
+
   return (
-    <>
-      <View style={styles.container}>
-        <StatusBar backgroundColor={colors.baseColor} />
-        <ImageBackground source={welcome} style={styles.backgroundImage}>
-          <View style={styles.overlay}>
-            <Text style={styles.title}>
-              Urban<Text style={{ color: "gray" }}>House.com</Text>
-            </Text>
-          </View>
-          <View style={styles.overlay2}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.push("Home");
-              }}
-              style={styles.button}
-            >
-              <Ionicons name="logo-google" size={20} color="white" />
-              <Text style={styles.buttonText}>Continue with Google</Text>
+    <View style={styles.container}>
+      <StatusBar backgroundColor={colors.baseColor} barStyle="light-content" />
+      <ImageBackground source={welcome} style={styles.backgroundImage}>
+        <View style={styles.overlay}>
+          <Text style={styles.title}>
+            Urban<Text style={styles.grayText}>House.com</Text>
+          </Text>
+
+          <View style={styles.inputSection}>
+            <View style={styles.inputWrapper}>
+              <Text style={styles.countryCode}>+91 🇮🇳</Text>
+              <View style={styles.divider} />
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your Mobile Number"
+                keyboardType="phone-pad"
+                maxLength={10}
+                value={mobile}
+                onChangeText={setMobile}
+              />
+            </View>
+
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+              <Text style={styles.buttonText}>Let's Gooo...</Text>
             </TouchableOpacity>
           </View>
-        </ImageBackground>
-        <View style={styles.overlayTwo}>
-          <Text style={styles.policyText}>
-            By continuing, you agree to our <Text>Terms of Service</Text> and{" "}
-            <Text>Privacy Policy</Text> of UrbanHouse.com !
-          </Text>
         </View>
+      </ImageBackground>
+
+      <View style={styles.bottomNote}>
+        <Text style={styles.policyText}>
+          By continuing, you agree to our{" "}
+          <Text style={styles.link}>Terms of Service</Text> and{" "}
+          <Text style={styles.link}>Privacy Policy</Text> of UrbanHouse.com!
+        </Text>
       </View>
-    </>
+    </View>
   );
 };
+
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
@@ -53,67 +73,85 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "flex-end",
   },
   overlay: {
-    position: "absolute",
-    bottom: 150, // Text will be 50 units from the bottom
-    left: 0,
-    right: 0,
-    alignItems: "center",
-  },
-  overlay2: {
-    position: "absolute",
-    bottom: 80, // Text will be 50 units from the bottom
-    left: 0,
-    right: 0,
-    alignItems: "center",
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingHorizontal: 20,
+    paddingBottom: 120,
   },
   title: {
     fontSize: 38,
     fontWeight: "bold",
     color: colors.baseColor,
-    marginBottom: 60,
-  },
-  subTitle: {
-    fontSize: 14,
-    color: colors.baseColor,
+    marginBottom: 30,
     textAlign: "center",
-    width: "80%",
+  },
+  grayText: {
+    color: "gray",
+  },
+  inputSection: {
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  label: {
+    marginBottom: 8,
+    color: "#6e6e6e",
+    fontSize: 16,
+  },
+  inputWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#dcdcdc",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    height: 60,
+    backgroundColor: "#fff",
     marginBottom: 20,
+  },
+  countryCode: {
+    fontSize: 16,
+    color: "gray",
+    fontWeight: "500",
+  },
+  divider: {
+    height: "60%",
+    width: 1,
+    backgroundColor: "#c0c0c0",
+    marginHorizontal: 10,
+  },
+  input: {
+    flex: 1,
+    fontSize: 16,
+    color: "#000",
   },
   button: {
     backgroundColor: colors.baseColor,
-    paddingVertical: 16,
-    width: "90%",
-    borderRadius: 5,
-    elevation: 10,
-    flexDirection: "row",
-    justifyContent: "center",
+    paddingVertical: 14,
+    borderRadius: 8,
     alignItems: "center",
-    marginBottom: 40,
+    elevation: 5,
   },
   buttonText: {
-    textAlign: "center",
-    color: "white",
+    color: "#fff",
+    fontWeight: "600",
     fontSize: 16,
-    fontWeight: "500",
-    marginLeft: 10,
   },
-  overlayTwo: {
+  bottomNote: {
     position: "absolute",
-    bottom: 20,
-    left: 0,
-    right: 0,
+    bottom: 25,
+    width: "100%",
     alignItems: "center",
     paddingHorizontal: 20,
   },
   policyText: {
-    color: "gray",
     fontSize: 12,
-    lineHeight: 18,
-    marginBottom: 10,
+    color: "gray",
+    textAlign: "center",
+  },
+  link: {
+    textDecorationLine: "underline",
+    color: colors.baseColor,
   },
 });
-
-export default Login;

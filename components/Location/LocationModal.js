@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   View,
   Text,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     justifyContent: "space-between",
-    height: "40%",
+    height: "90%",
   },
   headerContainer: {
     alignItems: "center",
