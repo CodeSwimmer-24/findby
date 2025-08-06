@@ -5,12 +5,13 @@ import { View, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useIsFocused } from "@react-navigation/native";
 
-import Header from "../../components/Header"; // Header component
+// Header component
 import PropertyDetails from "./Screens/PropertyDetails"; // Property Details Screen
 import List from "../List"; // List screen
 import Forms from "../../Forms"; // Forms component
 import colors from "../../constant/colors"; // App color constants
 import { getTabBarOptions } from "../../global/TabBarStyle"; // Custom tab bar styles
+import Header from "../../components/Header";
 
 const HomeScreen = ({ navigation }) => {
   const isFocused = useIsFocused();

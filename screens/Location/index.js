@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import colors from "../../constant/colors";
 import FlatFilter from "./Components/FlatFilter/FlatFilter";
 import OfficeFilter from "./Components/OfficeFilter/OfficeFilter";

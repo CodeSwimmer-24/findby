@@ -21,7 +21,7 @@ import colors from "../../constant/colors";
 const List = ({ navigation }) => {
   const isFocused = useIsFocused();
   const route = useRoute();
-  const { category } = route.params;
+  // const { category } = route.params;
 
   useEffect(() => {
     if (isFocused) {
@@ -40,7 +40,7 @@ const List = ({ navigation }) => {
           <Entypo name="chevron-left" size={24} color={colors.baseColor} />
         </TouchableOpacity>
         <View style={styles.headerTitleContainer}>
-          <Text style={styles.headerTitle}>{category}</Text>
+          <Text style={styles.headerTitle}>Room Shifting</Text>
         </View>
       </View>
 

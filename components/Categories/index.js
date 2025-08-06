@@ -7,8 +7,10 @@ import {
   StyleSheet,
 } from "react-native";
 import colors from "../../constant/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const Category = () => {
+  const navigation = useNavigation(); // ✅ initialize navigation
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const categories = [
@@ -19,8 +21,9 @@ const Category = () => {
     "Goudune Rent",
   ];
 
-  const handleCastegoryPress = (category) => {
+  const handleCategoryPress = (category) => {
     setSelectedCategory(category);
+    navigation.navigate("List"); // ✅ navigate with category
   };
 
   return (
